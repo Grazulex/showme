@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Sleep;
+use Illuminate\Support\Str;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -13,7 +19,14 @@
 
 pest()->extend(Tests\TestCase::class)
     ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
-    ->in('Feature');
+    ->beforeEach(function () {
+        Str::createUuidsNormally();
+        Str::createRandomStringsNormally();
+        Http::preventingStrayRequests();
+        Sleep::fake();
+        $this->freezeTime();
+    })
+    ->in('Feature', 'Unit');
 
 /*
 |--------------------------------------------------------------------------
