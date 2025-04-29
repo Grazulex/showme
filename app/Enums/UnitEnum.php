@@ -24,20 +24,20 @@ enum UnitEnum: string
     public function color(): string
     {
         return match ($this) {
-            self::kilogram => 'bg-blue-500',
-            self::centimeter => 'bg-green-500',
-            self::kilometerperhour => 'bg-red-500',
-            self::calories => 'bg-yellow-500',
+            self::kilogram => 'blue',
+            self::centimeter => 'green',
+            self::kilometerperhour => 'red',
+            self::calories => 'yellow',
         };
     }
 
     public function icon(): string
     {
         return match ($this) {
-            self::kilogram => 'fa-solid fa-weight-hanging',
-            self::centimeter => 'fa-solid fa-ruler',
-            self::kilometerperhour => 'fa-solid fa-car',
-            self::calories => 'fa-solid fa-fire',
+            self::kilogram => 'weight',
+            self::centimeter => 'ruler',
+            self::kilometerperhour => 'gauge',
+            self::calories => 'flame',
         };
     }
 }

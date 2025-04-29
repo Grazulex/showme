@@ -8,19 +8,33 @@ use App\Enums\UnitEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property UnitEnum $unit
- * @property-read User|null $user
  * @property-read int $id
  * @property-read string $name
  * @property-read string $slug
  * @property-read string $description
+ * @property-read UnitEnum|null $unit
+ * @property-read int $user_id
+ * @property-read \Illuminate\Support\Carbon|null $created_at
+ * @property-read \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Goal> $goals
+ * @property-read int|null $goals_count
+ * @property-read User $user
  *
  * @method static \Database\Factories\TopicFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereUnit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereUserId($value)
  *
  * @mixin \Eloquent
  */
@@ -36,5 +50,10 @@ final class Topic extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function goals(): HasMany
+    {
+        return $this->hasMany(Goal::class);
     }
 }

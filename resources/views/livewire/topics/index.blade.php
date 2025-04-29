@@ -6,10 +6,26 @@
             <flux:separator variant="subtle" />
         </div>
         <flux:separator />
-        @foreach ($topics as $topic)
-            {{ $topic->name }}
-        @endforeach
-
-        {{ $topics->links() }}
+        <flux:table :paginate="$topics" class="w-full">
+            <flux:table.columns>
+                <flux:table.column>Name</flux:table.column>
+                <flux:table.column>Desciption</flux:table.column>
+                <flux:table.column>Unit</flux:table.column>
+                <flux:table.column>Actions</flux:table.column>
+            </flux:table.columns>
+            <flux:table.rows>
+                @foreach ($topics as $topic)
+                    <flux:table.row :key="$topic->id">
+                        <flux:table.cell variant="strong">{{ $topic->name }}</flux:table.cell>
+                        <flux:table.cell class="whitespace-nowrap">{{ $topic->description }}</flux:table.cell>
+                        <flux:table.cell>
+                            <flux:badge icon="{{$topic->unit->icon()}}" size="sm" :color="$topic->unit->color()" inset="top bottom">{{ $topic->unit->label() }}</flux:badge>
+                        </flux:table.cell>
+                        <flux:table.cell>
+                        </flux:table.cell>
+                    </flux:table.row>
+                @endforeach
+            </flux:table.rows>
+        </flux:table>
     </div>
 </div>
