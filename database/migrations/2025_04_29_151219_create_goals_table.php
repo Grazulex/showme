@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
             $table->string('type')->default(GoalTypeEnum::increase);
+            $table->decimal('target', 10, 2)->default(0);
 
             $table->dateTime('ended_at')->nullable();
 

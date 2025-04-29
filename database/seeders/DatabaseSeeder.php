@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Goal;
 use App\Models\Topic;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -26,5 +27,12 @@ final class DatabaseSeeder extends Seeder
         Topic::factory(20)->create([
             'user_id' => $user->id,
         ]);
+
+        foreach (Topic::all() as $topic) {
+            Goal::factory()->make([
+                'topic_id' => $topic->id,
+                'user_id' => $topic->user_id,
+            ]);
+        }
     }
 }

@@ -24,7 +24,7 @@ enum GoalTypeEnum: string
         return match ($this) {
             self::increase => 'arrow-up',
             self::decrease => 'arrow-down',
-            self::maintain => 'equalizer',
+            self::maintain => 'equals',
         };
     }
 }

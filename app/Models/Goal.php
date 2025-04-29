@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read Topic|null $topic
  * @property-read User|null $user
  * @property-read GoalTypeEnum $type
+ * @property-read float $target
  * @property-read int $user_id
  * @property-read int $topic_id
  * @property-read \Illuminate\Support\Carbon|null $created_at
@@ -35,6 +36,7 @@ final class Goal extends Model
 
     protected $casts = [
         'type' => GoalTypeEnum::class,
+        'ended_at' => 'datetime',
     ];
 
     public function user(): BelongsTo

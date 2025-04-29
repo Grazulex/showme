@@ -10,9 +10,9 @@ test('check value Calories', function (): void {
     expect($unit->label())
         ->toEqual('Calories');
     expect($unit->color())
-        ->toEqual('bg-yellow-500');
+        ->toEqual('yellow');
     expect($unit->icon())
-        ->toEqual('fa-solid fa-fire');
+        ->toEqual('flame');
 });
 
 test('check value Kilogram', function (): void {
@@ -23,9 +23,9 @@ test('check value Kilogram', function (): void {
     expect($unit->label())
         ->toEqual('Kilogram');
     expect($unit->color())
-        ->toEqual('bg-blue-500');
+        ->toEqual('blue');
     expect($unit->icon())
-        ->toEqual('fa-solid fa-weight-hanging');
+        ->toEqual('weight');
 });
 
 test('check value Centimeter', function (): void {
@@ -36,9 +36,9 @@ test('check value Centimeter', function (): void {
     expect($unit->label())
         ->toEqual('Centimeter');
     expect($unit->color())
-        ->toEqual('bg-green-500');
+        ->toEqual('green');
     expect($unit->icon())
-        ->toEqual('fa-solid fa-ruler');
+        ->toEqual('ruler');
 });
 
 test('check value Kilometer per hour', function (): void {
@@ -49,7 +49,7 @@ test('check value Kilometer per hour', function (): void {
     expect($unit->label())
         ->toEqual('Kilometer per hour');
     expect($unit->color())
-        ->toEqual('bg-red-500');
+        ->toEqual('red');
     expect($unit->icon())
-        ->toEqual('fa-solid fa-car');
+        ->toEqual('gauge');
 });
