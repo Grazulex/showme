@@ -11,6 +11,8 @@
                 <flux:table.column>Name</flux:table.column>
                 <flux:table.column>Desciption</flux:table.column>
                 <flux:table.column>Unit</flux:table.column>
+                <flux:table.column>Goals</flux:table.column>
+                <flux:table.column>Values</flux:table.column>
                 <flux:table.column>Actions</flux:table.column>
             </flux:table.columns>
             <flux:table.rows>
@@ -22,6 +24,15 @@
                             <flux:badge icon="{{$topic->unit->icon()}}" size="sm" :color="$topic->unit->color()" inset="top bottom">{{ $topic->unit->label() }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
+                            <flux:badge icon="academic-cap" size="sm" color="success" inset="top bottom">{{ $topic->goals->count() }}</flux:badge>
+                        </flux:table.cell>
+                        <flux:table.cell>
+                        </flux:table.cell>
+                        <flux:table.cell>
+                            <flux:button.group>
+                                <flux:button size="xs" icon="pencil" />
+                                <flux:button size="xs" variant="danger" icon="trash" />
+                            </flux:button.group>
                         </flux:table.cell>
                     </flux:table.row>
                 @endforeach
