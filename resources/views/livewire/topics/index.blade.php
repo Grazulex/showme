@@ -3,10 +3,15 @@
         <div class="relative mb-6 w-full">
             <flux:heading size="xl" level="1">
                 Topics
-                <flux:button size="sm" icon="plus" class="absolute right-0 top-0" />
+                <flux:modal.trigger name="create-topic" class="absolute right-0 top-0">
+                    <flux:button size="sm" icon="plus" />
+                </flux:modal.trigger>
             </flux:heading>
             <flux:subheading size="lg" class="mb-6">Manage your Topics</flux:subheading>
         </div>
+
+        <livewire:topics.create />
+
         <flux:separator />
         <flux:table :paginate="$topics" class="w-full">
             <flux:table.columns>
