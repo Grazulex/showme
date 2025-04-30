@@ -14,6 +14,7 @@ test('to array', function (): void {
             'user_id',
             'type',
             'target',
+            'started_at',
             'ended_at',
             'updated_at',
             'created_at',

@@ -29,6 +29,7 @@ final class GoalFactory extends Factory
             'user_id' => $user_id,
             'type' => fake()->randomElement(GoalTypeEnum::cases()),
             'target' => fake()->randomFloat(2, 0, 100),
+            'started_at' => fake()->dateTimeBetween('-1 year', 'now'),
             'ended_at' => fake()->dateTimeBetween('now', '+1 year'),
         ];
     }

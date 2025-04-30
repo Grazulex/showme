@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('type')->default(GoalTypeEnum::increase);
             $table->decimal('target', 10, 2)->default(0);
 
+            $table->dateTime('started_at')->default(now());
             $table->dateTime('ended_at')->nullable();
 
             $table->timestamps();

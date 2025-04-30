@@ -21,11 +21,13 @@ final class Goal extends Model
         'user_id',
         'type',
         'target',
+        'started_at',
         'ended_at',
     ];
 
     protected $casts = [
         'type' => GoalTypeEnum::class,
+        'started_at' => 'datetime',
         'ended_at' => 'datetime',
     ];
 

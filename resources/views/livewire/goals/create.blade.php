@@ -29,6 +29,8 @@
 
             <flux:input label="target" wire:model="target" placeholder="Target value" />
 
+            <flux:date-picker label="Started at" wire:model="started_at" placeholder="Select a date" />
+
             <flux:date-picker label="Ended at" wire:model="ended_at" placeholder="Select a date" />
 
             <div class="flex">

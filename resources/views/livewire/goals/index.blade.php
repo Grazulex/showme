@@ -19,6 +19,7 @@
                 <flux:table.column>Topic</flux:table.column>
                 <flux:table.column>Type</flux:table.column>
                 <flux:table.column>Target</flux:table.column>
+                <flux:table.column>Started</flux:table.column>
                 <flux:table.column>Ended</flux:table.column>
                 <flux:table.column>Values</flux:table.column>
                 <flux:table.column>Actions</flux:table.column>
@@ -34,6 +35,9 @@
                             <flux:badge icon="{{$goal->type->icon()}}" size="sm" inset="top bottom">{{ $goal->type->label() }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>{{ $goal->target }} {{ $goal->topic->unit->value }}</flux:table.cell>
+                        <flux:table.cell>
+                            <flux:badge icon="calendar" size="sm" inset="top bottom">{{ $goal->started_at->format('d/m/Y') }}</flux:badge>
+                        </flux:table.cell>
                         <flux:table.cell>
                             <flux:badge icon="calendar" size="sm" inset="top bottom">{{ $goal->ended_at->format('d/m/Y') }}</flux:badge>
                         </flux:table.cell>
