@@ -11,6 +11,7 @@
         </div>
 
         <livewire:topics.create />
+        <livewire:topics.edit />
 
         <flux:separator />
         <flux:table :paginate="$topics" class="w-full">
@@ -37,7 +38,7 @@
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:button.group>
-                                <flux:button size="xs" icon="pencil" />
+                                <flux:button size="xs" wire:click="edit({{ $topic->id }})" icon="pencil" />
                                 <flux:button size="xs" wire:click="delete({{ $topic->id }})" variant="danger" icon="trash" />
                             </flux:button.group>
                         </flux:table.cell>

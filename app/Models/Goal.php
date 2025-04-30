@@ -10,23 +10,32 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property-read int $id
- * @property-read string $name
- * @property-read Topic|null $topic
- * @property-read User|null $user
- * @property-read GoalTypeEnum $type
- * @property-read float $target
- * @property-read int $user_id
- * @property-read int $topic_id
- * @property-read \Illuminate\Support\Carbon|null $created_at
- * @property-read \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Support\Carbon|null $ended_at
+ * 
  *
+ * @property int $id
+ * @property string $name
+ * @property int $topic_id
+ * @property int $user_id
+ * @property GoalTypeEnum $type
+ * @property string $target
+ * @property \Illuminate\Support\Carbon|null $ended_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Topic $topic
+ * @property-read \App\Models\User $user
  * @method static \Database\Factories\GoalFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal query()
- *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereEndedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereTarget($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereTopicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereUserId($value)
  * @mixin \Eloquent
  */
 final class Goal extends Model

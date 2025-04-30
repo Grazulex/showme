@@ -36,6 +36,11 @@ final class Index extends Component
         Flux::toast(heading : 'Topics', text: 'Topic deleted successfully.', variant: 'success');
     }
 
+    public function edit(int $topicId): void
+    {
+        $this->dispatch('editTopic', $topicId);
+    }
+
     private function getTopics(): LengthAwarePaginator
     {
         return Auth::user()->topics()
