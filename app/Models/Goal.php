@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property int $topic_id
@@ -21,8 +19,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $ended_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Topic $topic
- * @property-read \App\Models\User $user
+ * @property-read Topic $topic
+ * @property-read User $user
+ *
  * @method static \Database\Factories\GoalFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal newQuery()
@@ -36,6 +35,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Goal whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 final class Goal extends Model
