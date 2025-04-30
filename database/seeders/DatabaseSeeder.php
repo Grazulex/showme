@@ -29,9 +29,9 @@ final class DatabaseSeeder extends Seeder
         ]);
 
         foreach (Topic::all() as $topic) {
-            Goal::factory()->make([
+            Goal::factory()->create([
                 'topic_id' => $topic->id,
-                'user_id' => $topic->user_id,
+                'user_id' => $user->id,
             ]);
         }
     }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Livewire\Goals\Index as GoalsIndex;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -20,6 +21,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 
     Route::get('topics', TopicsIndex::class)->name('topics.index');
+
+    Route::get('goals', GoalsIndex::class)->name('goals.index');
 });
 
 require __DIR__.'/auth.php';
