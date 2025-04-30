@@ -10,6 +10,7 @@
             <flux:subheading size="lg" class="mb-6">Manage your Goals</flux:subheading>
         </div>
 
+        <livewire:goals.create />
 
         <flux:separator />
         <flux:table :paginate="$goals" class="w-full">
