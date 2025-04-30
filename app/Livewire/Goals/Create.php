@@ -7,6 +7,7 @@ namespace App\Livewire\Goals;
 use App\Enums\GoalTypeEnum;
 use App\Models\Topic;
 use DateTimeImmutable;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -22,7 +23,7 @@ final class Create extends Component
 
     public DateTimeImmutable $target_date;
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.goals.create',
             [
