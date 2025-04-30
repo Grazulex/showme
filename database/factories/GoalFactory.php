@@ -21,12 +21,12 @@ final class GoalFactory extends Factory
     public function definition(): array
     {
         $topic = Topic::factory()->create();
-        $user = $topic->user;
+        $user_id = $topic->user_id;
 
         return [
             'name' => fake()->unique()->word(),
             'topic_id' => $topic->id,
-            'user_id' => $user->id,
+            'user_id' => $user_id,
             'type' => fake()->randomElement(GoalTypeEnum::cases()),
             'target' => fake()->randomFloat(2, 0, 100),
             'ended_at' => fake()->dateTimeBetween('now', '+1 year'),

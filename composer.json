@@ -94,6 +94,13 @@
             "@test:types",
             "@test:type-coverage",
             "@test:unit"
+        ],
+        "full": [
+            "@test:lint",
+            "@test:review",
+            "@test:types",
+            "@test:type-coverage",
+            "@test:unit"
         ]
     },
     "extra": {
