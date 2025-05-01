@@ -6,6 +6,7 @@ namespace App\Livewire\Goals;
 
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -16,9 +17,9 @@ final class Index extends Component
 {
     use WithPagination;
 
-    public $sortBy = 'ended_at';
+    public string $sortBy = 'ended_at';
 
-    public $sortDirection = 'asc';
+    public string $sortDirection = 'asc';
 
     #[On('reloadGoals')]
     public function reloadGoals(): void
@@ -47,7 +48,7 @@ final class Index extends Component
         $this->dispatch('editGoal', $goalId);
     }
 
-    public function sort($column): void
+    public function sort(string $column): void
     {
         if ($this->sortBy === $column) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
@@ -60,7 +61,7 @@ final class Index extends Component
     private function getGoals(): LengthAwarePaginator
     {
         return Auth::user()->goals()
-            ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
+            ->tap(fn (Builder $query) => $this->sortBy !== '' && $this->sortBy !== '0' ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
             ->paginate(10);
     }
 }

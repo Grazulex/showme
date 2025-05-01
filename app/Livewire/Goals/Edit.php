@@ -8,8 +8,9 @@ use App\Actions\Goals\UpdateGoalAction;
 use App\Enums\GoalTypeEnum;
 use App\Models\Goal;
 use App\Models\Topic;
-use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Flux\Flux;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
@@ -27,9 +28,9 @@ final class Edit extends Component
 
     public float $target = 0.0;
 
-    public ?Carbon $started_at;
+    public ?CarbonInterface $started_at;
 
-    public ?Carbon $ended_at;
+    public ?CarbonInterface $ended_at;
 
     #[On('editGoal')]
     public function edit(int $goalId): void
@@ -46,12 +47,12 @@ final class Edit extends Component
         Flux::modal('edit-goal')->show();
     }
 
-    public function getGoal()
+    public function getGoal(): Goal
     {
         return Goal::findOrFail($this->goalId);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.goals.edit',
             [
@@ -64,7 +65,7 @@ final class Edit extends Component
         );
     }
 
-    public function submit()
+    public function submit(): void
     {
         $this->validate([
             'name' => [
