@@ -27,6 +27,8 @@ use Illuminate\Support\Str;
  * @property-read Collection<int, Goal> $goals
  * @property-read string $initials
  * @property-read CarbonInterface|null $email_verified_at
+ * @property-read Collection<int, Value> $values
+ * @property-read int|null $topics_count
  */
 final class User extends Authenticatable
 {
@@ -74,6 +76,11 @@ final class User extends Authenticatable
     public function goals(): HasMany
     {
         return $this->hasMany(Goal::class, 'user_id');
+    }
+
+    public function values(): HasMany
+    {
+        return $this->hasMany(Value::class, 'user_id');
     }
 
     /**

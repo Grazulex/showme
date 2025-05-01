@@ -22,6 +22,8 @@ final class UpdateTopicAction
                 ]
             );
 
+            $topic->refresh();
+
             return $topic;
         });
     }

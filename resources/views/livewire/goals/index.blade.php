@@ -11,6 +11,7 @@
         </div>
 
         <livewire:goals.create />
+        <livewire:goals.edit />
 
         <flux:separator />
         <flux:table :paginate="$goals" class="w-full">
@@ -21,7 +22,6 @@
                 <flux:table.column>Target</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'started_at'" :direction="$sortDirection" wire:click="sort('started_at')">Started</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'ended_at'" :direction="$sortDirection" wire:click="sort('ended_at')">Ended</flux:table.column>
-                <flux:table.column>Values</flux:table.column>
                 <flux:table.column>Actions</flux:table.column>
             </flux:table.columns>
             <flux:table.rows>
@@ -40,8 +40,6 @@
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:badge icon="calendar" size="sm" inset="top bottom">{{ $goal->ended_at->format('d/m/Y') }}</flux:badge>
-                        </flux:table.cell>
-                        <flux:table.cell>
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:button.group>

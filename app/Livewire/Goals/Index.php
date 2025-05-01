@@ -42,6 +42,11 @@ final class Index extends Component
         return view('livewire.goals.index', ['goals' => $this->getGoals()]);
     }
 
+    public function edit(int $goalId): void
+    {
+        $this->dispatch('editGoal', $goalId);
+    }
+
     public function sort($column): void
     {
         if ($this->sortBy === $column) {

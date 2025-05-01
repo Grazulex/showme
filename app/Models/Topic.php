@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read User $user
  * @property-read Collection<int, Goal> $goals
  * @property-read int|null $goals_count
+ * @property-read Collection<int, Value> $values
+ * @property-read int|null $values_count
  */
 final class Topic extends Model
 {
@@ -47,5 +49,10 @@ final class Topic extends Model
     public function goals(): HasMany
     {
         return $this->hasMany(Goal::class, 'topic_id');
+    }
+
+    public function values(): HasMany
+    {
+        return $this->hasMany(Value::class, 'topic_id');
     }
 }
