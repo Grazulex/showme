@@ -36,10 +36,10 @@
                         </flux:table.cell>
                         <flux:table.cell>{{ $goal->target }} {{ $goal->topic->unit->value }}</flux:table.cell>
                         <flux:table.cell>
-                            <flux:badge icon="calendar" size="sm" inset="top bottom">{{ $goal->started_at->format('d/m/Y') }}</flux:badge>
+                            <flux:badge icon="calendar" size="sm" inset="top bottom">{{ \Carbon\Carbon::parse($goal->started_at)->diffForHumans() }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
-                            <flux:badge icon="calendar" size="sm" inset="top bottom">{{ $goal->ended_at->format('d/m/Y') }}</flux:badge>
+                            <flux:badge icon="calendar" size="sm" inset="top bottom">{{ \Carbon\Carbon::parse($goal->ended_at)->diffForHumans() }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:button.group>

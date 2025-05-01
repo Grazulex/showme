@@ -8,6 +8,7 @@ use App\Actions\Goals\UpdateGoalAction;
 use App\Enums\GoalTypeEnum;
 use App\Models\Goal;
 use App\Models\Topic;
+use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
@@ -41,8 +42,8 @@ final class Edit extends Component
         $this->topic_id = $goal->topic_id;
         $this->type = $goal->type->value;
         $this->target = $goal->target;
-        $this->started_at = $goal->started_at;
-        $this->ended_at = $goal->ended_at;
+        $this->started_at = Carbon::parse($goal->started_at);
+        $this->ended_at = Carbon::parse($goal->ended_at);
 
         Flux::modal('edit-goal')->show();
     }

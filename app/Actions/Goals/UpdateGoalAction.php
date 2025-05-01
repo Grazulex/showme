@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 final class UpdateGoalAction
 {
-    /**
-     * Create a new class instance.
-     */
     public function handle(Goal $goal, array $attributes): Goal
     {
         return DB::transaction(function () use ($goal, $attributes): Goal {
