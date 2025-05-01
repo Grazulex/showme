@@ -16,9 +16,9 @@
         <flux:separator />
         <flux:table :paginate="$topics" class="w-full">
             <flux:table.columns>
-                <flux:table.column>Name</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:table.column>
                 <flux:table.column>Desciption</flux:table.column>
-                <flux:table.column>Unit</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'unit'" :direction="$sortDirection" wire:click="sort('unit')">Unit</flux:table.column>
                 <flux:table.column>Goals</flux:table.column>
                 <flux:table.column>Values</flux:table.column>
                 <flux:table.column>Actions</flux:table.column>

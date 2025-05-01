@@ -14,8 +14,8 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('home')" :current="request()->routeIs('home')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="user" :href="route('topics.index')" :current="request()->routeIs('topics.*')" wire:navigate>{{ __('Topics') }}</flux:navlist.item>
-                    <flux:navlist.item icon="user" :href="route('goals.index')" :current="request()->routeIs('goals.*')" wire:navigate>{{ __('Goals') }}</flux:navlist.item>
+                    <flux:navlist.item icon="tag" :href="route('topics.index')" :current="request()->routeIs('topics.*')" wire:navigate>{{ __('Topics') }}</flux:navlist.item>
+                    <flux:navlist.item icon="academic-cap" :href="route('goals.index')" :current="request()->routeIs('goals.*')" wire:navigate>{{ __('Goals') }}</flux:navlist.item>
                 </flux:navlist.group>
 
             </flux:navlist>

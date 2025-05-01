@@ -16,6 +16,10 @@ final class Index extends Component
 {
     use WithPagination;
 
+    public $sortBy = 'ended_at';
+
+    public $sortDirection = 'asc';
+
     #[On('reloadGoals')]
     public function reloadGoals(): void
     {
@@ -38,10 +42,20 @@ final class Index extends Component
         return view('livewire.goals.index', ['goals' => $this->getGoals()]);
     }
 
+    public function sort($column): void
+    {
+        if ($this->sortBy === $column) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortBy = $column;
+            $this->sortDirection = 'asc';
+        }
+    }
+
     private function getGoals(): LengthAwarePaginator
     {
         return Auth::user()->goals()
-            ->latest()
+            ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
             ->paginate(10);
     }
 }

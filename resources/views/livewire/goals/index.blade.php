@@ -15,12 +15,12 @@
         <flux:separator />
         <flux:table :paginate="$goals" class="w-full">
             <flux:table.columns>
-                <flux:table.column>Name</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:table.column>
                 <flux:table.column>Topic</flux:table.column>
-                <flux:table.column>Type</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'type'" :direction="$sortDirection" wire:click="sort('type')">Type</flux:table.column>
                 <flux:table.column>Target</flux:table.column>
-                <flux:table.column>Started</flux:table.column>
-                <flux:table.column>Ended</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'started_at'" :direction="$sortDirection" wire:click="sort('started_at')">Started</flux:table.column>
+                <flux:table.column sortable :sorted="$sortBy === 'ended_at'" :direction="$sortDirection" wire:click="sort('ended_at')">Ended</flux:table.column>
                 <flux:table.column>Values</flux:table.column>
                 <flux:table.column>Actions</flux:table.column>
             </flux:table.columns>

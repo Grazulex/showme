@@ -16,6 +16,10 @@ final class Index extends Component
 {
     use WithPagination;
 
+    public $sortBy = 'name';
+
+    public $sortDirection = 'asc';
+
     #[On('reloadTopics')]
     public function reloadTopics(): void
     {
@@ -41,10 +45,20 @@ final class Index extends Component
         $this->dispatch('editTopic', $topicId);
     }
 
+    public function sort($column): void
+    {
+        if ($this->sortBy === $column) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortBy = $column;
+            $this->sortDirection = 'asc';
+        }
+    }
+
     private function getTopics(): LengthAwarePaginator
     {
         return Auth::user()->topics()
-            ->latest()
+            ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
             ->paginate(10);
     }
 }
