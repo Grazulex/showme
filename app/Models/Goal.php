@@ -42,8 +42,6 @@ final class Goal extends Model
 
     protected $casts = [
         'type' => GoalTypeEnum::class,
-        'started_at' => 'datetime',
-        'ended_at' => 'datetime',
     ];
 
     public function user(): BelongsTo
