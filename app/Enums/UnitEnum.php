@@ -8,6 +8,7 @@ enum UnitEnum: string
 {
     case kilogram = 'kg';
     case centimeter = 'cm';
+    case kilometer = 'km';
     case kilometerperhour = 'km/h';
     case calories = 'cal';
 
@@ -16,6 +17,7 @@ enum UnitEnum: string
         return match ($this) {
             self::kilogram => 'Kilogram',
             self::centimeter => 'Centimeter',
+            self::kilometer => 'Kilometer',
             self::kilometerperhour => 'Kilometer per hour',
             self::calories => 'Calories',
         };
@@ -26,6 +28,7 @@ enum UnitEnum: string
         return match ($this) {
             self::kilogram => 'blue',
             self::centimeter => 'green',
+            self::kilometer => 'purple',
             self::kilometerperhour => 'red',
             self::calories => 'yellow',
         };
@@ -36,6 +39,7 @@ enum UnitEnum: string
         return match ($this) {
             self::kilogram => 'weight',
             self::centimeter => 'ruler',
+            self::kilometer => 'footprints',
             self::kilometerperhour => 'gauge',
             self::calories => 'flame',
         };

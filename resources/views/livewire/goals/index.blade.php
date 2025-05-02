@@ -27,7 +27,7 @@
             <flux:table.rows>
                 @foreach ($goals as $goal)
                     <flux:table.row :key="$goal->id">
-                        <flux:table.cell variant="strong">{{ $goal->name }}</flux:table.cell>
+                        <flux:table.cell variant="strong" class="text-wrap">{{ $goal->name }}</flux:table.cell>
                         <flux:table.cell>
                             <flux:badge icon="{{$goal->topic->unit->icon()}}" size="sm" :color="$goal->topic->unit->color()" inset="top bottom">{{ $goal->topic->name }}</flux:badge>
                         </flux:table.cell>

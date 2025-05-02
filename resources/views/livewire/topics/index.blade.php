@@ -32,7 +32,7 @@
                             <flux:badge icon="{{$topic->unit->icon()}}" size="sm" :color="$topic->unit->color()" inset="top bottom">{{ $topic->unit->label() }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
-                            <flux:badge icon="academic-cap" size="sm" color="success" inset="top bottom">{{ $topic->goals->count() }}</flux:badge>
+                            <flux:badge icon="medal" size="sm" color="success" inset="top bottom">{{ $topic->goals->count() }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:badge icon="check-circle" size="sm" color="success" inset="top bottom">{{ $topic->values->count() }}</flux:badge>
