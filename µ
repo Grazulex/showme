@@ -42,7 +42,6 @@ test('can create goal', function () {
 test('need to fill all fields', function () {
     $user = User::factory()->create();
     $this->actingAs($user);
-    $topic = Topic::factory()->create();
 
     Livewire::test(Create::class)
         ->set('name', '')
