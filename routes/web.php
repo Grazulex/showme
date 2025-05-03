@@ -7,6 +7,7 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Topics\Index as TopicsIndex;
+use App\Livewire\Values\Index as ValuesIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'dashboard')
@@ -21,8 +22,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 
     Route::get('topics', TopicsIndex::class)->name('topics.index');
-
     Route::get('goals', GoalsIndex::class)->name('goals.index');
+    Route::get('values', ValuesIndex::class)->name('values.index');
 });
 
 require __DIR__.'/auth.php';
