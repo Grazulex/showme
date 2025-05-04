@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,6 +19,12 @@ final class Index extends Component
     public string $sortBy = 'created_at';
 
     public string $sortDirection = 'asc';
+
+    #[On('reloadValues')]
+    public function reloadValues(): void
+    {
+        $this->resetPage();
+    }
 
     public function render(): View
     {

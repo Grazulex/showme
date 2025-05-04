@@ -6,6 +6,8 @@ namespace App\Models;
 
 use App\Enums\UnitEnum;
 use Carbon\CarbonInterface;
+use DateTimeImmutable;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -54,5 +56,27 @@ final class Topic extends Model
     public function values(): HasMany
     {
         return $this->hasMany(Value::class, 'topic_id');
+    }
+
+    public function getLastValueBeforeDate(DateTimeImmutable $date): ?Value
+    {
+        return Value::query()
+            ->where('topic_id', $this->id)
+            ->where('created_at', '<=', $date)
+            ->orderByDesc('created_at')
+            ->first();
+    }
+
+    public function getFirstActifGoal(): ?Goal
+    {
+        return Goal::query()
+            ->where('topic_id', $this->id)
+            ->where('started_at', '<=', now())
+            ->where(function (Builder $query): void {
+                $query->where('ended_at', '>=', now())
+                    ->orWhereNull('ended_at');
+            })
+            ->orderBy('started_at')
+            ->first();
     }
 }

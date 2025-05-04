@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $user_id
  * @property float $value
  * @property float $diff_with_last
+ * @property string $color
  * @property CarbonInterface|null $created_at
  * @property CarbonInterface|null $updated_at
  * @property Topic $topic
@@ -31,6 +32,8 @@ final class Value extends Model
         'user_id',
         'value',
         'diff_with_last',
+        'color',
+        'created_at',
     ];
 
     protected $casts = [

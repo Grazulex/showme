@@ -27,6 +27,7 @@ final class ValueFactory extends Factory
             'topic_id' => $topic->id,
             'value' => fake()->randomFloat(2, 0, 100),
             'diff_with_last' => fake()->randomFloat(2, -10, 10),
+            'color' => fake()->randomElement(['red', 'green', 'blue']),
         ];
     }
 }

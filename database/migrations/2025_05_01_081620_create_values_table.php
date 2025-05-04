@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('topic_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->decimal('value', 8, 2);
+            $table->string('color')->default('blue');
             $table->decimal('diff_with_last', 8, 2)->nullable();
 
             $table->timestamps();

@@ -30,13 +30,17 @@
                             <flux:badge icon="{{$value->topic->unit->icon()}}" size="sm" :color="$value->topic->unit->color()" inset="top bottom">{{ $value->topic->name }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
-                            <flux:badge icon="calendar" size="sm" inset="top bottom">{{ \Carbon\Carbon::parse($goal->created_at)->diffForHumans() }}</flux:badge>
+                            <flux:badge icon="calendar" size="sm" inset="top bottom">{{ \Carbon\Carbon::parse($value->created_at)->diffForHumans() }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
                             {{ $value->value }} {{ $value->topic->unit->value }}
                         </flux:table.cell>
                         <flux:table.cell>
-                            {{ $value->diff_with_last }} {{ $value->topic->unit->value }}
+
+                            <flux:badge icon="{{ $value->diff_with_last == 0.00 ? 'equal' : ($value->diff_with_last > 0.00 ? 'arrow-up' : 'arrow-down') }}" :color="$value->color" size="sm" inset="top bottom">
+                                {{ $value->diff_with_last }} {{ $value->topic->unit->value }}
+                            </flux:badge>
+
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:button.group>
