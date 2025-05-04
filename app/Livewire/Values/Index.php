@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Values;
 
+use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -26,6 +27,20 @@ final class Index extends Component
         $this->resetPage();
     }
 
+    public function delete(int $valueId): void
+    {
+        $value = Auth::user()->values()->findOrFail($valueId);
+        $value->delete();
+
+        // TODO : update diff & color next entry
+
+        Flux::toast(
+            heading: 'Values',
+            text: 'Value deleted successfully.',
+            variant: 'success'
+        );
+    }
+
     public function render(): View
     {
         $values = $this->getValues();
@@ -41,6 +56,11 @@ final class Index extends Component
             $this->sortBy = $column;
             $this->sortDirection = 'asc';
         }
+    }
+
+    public function edit(int $valueId): void
+    {
+        $this->dispatch('editValue', $valueId);
     }
 
     private function getValues(): LengthAwarePaginator

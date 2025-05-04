@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\UnitEnum;
+use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use DateTimeImmutable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -58,7 +59,7 @@ final class Topic extends Model
         return $this->hasMany(Value::class, 'topic_id');
     }
 
-    public function getLastValueBeforeDate(DateTimeImmutable $date): ?Value
+    public function getLastValueBeforeDate(DateTimeImmutable|Carbon $date): ?Value
     {
         return Value::query()
             ->where('topic_id', $this->id)

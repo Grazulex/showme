@@ -16,13 +16,13 @@ use Livewire\Component;
 
 final class Create extends Component
 {
-    public string $name = '';
+    public string $name;
 
-    public int $topic_id = 0;
+    public int $topic_id;
 
     public string $type;
 
-    public float $target = 0;
+    public float $target;
 
     public ?DateTimeImmutable $started_at = null;
 
@@ -87,14 +87,7 @@ final class Create extends Component
             ]
         );
 
-        $this->reset([
-            'name',
-            'topic_id',
-            'type',
-            'target',
-            'started_at',
-            'ended_at',
-        ]);
+        $this->reset();
 
         Flux::toast(
             heading: 'Goals',

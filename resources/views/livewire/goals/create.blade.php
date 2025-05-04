@@ -6,12 +6,7 @@
                 <flux:text class="mt-2">Create a new goal</flux:text>
             </div>
 
-
-            <flux:select
-                label="Topic"
-                wire:model="topic_id"
-                placeholder="Select a topic"
-            >
+            <flux:select label="Topic" wire:model="topic_id" placeholder="Select a topic" searchable>
                 @foreach ($topics as $topic)
                     <flux:select.option value="{{ $topic->id }}">
                         {{ $topic->name }}
