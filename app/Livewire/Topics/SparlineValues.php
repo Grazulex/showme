@@ -34,11 +34,18 @@ final class SparlineValues extends Component
     public function render(): View
     {
         $slope = $this->linearTrend($this->data);
+        $avg = $this->averageRelativeChange($this->data);
         if ($this->activeGoal instanceof Goal && $this->activeGoal->type === GoalTypeEnum::decrease) {
             $slope = -$slope;
         }
 
-        return view('livewire.topics.sparline-values', ['slope' => $slope]);
+        if (! is_null($avg)) {
+            $label = ($avg > 0 ? '+' : '').number_format($avg, 2);
+        } else {
+            $label = null;
+        }
+
+        return view('livewire.topics.sparline-values', ['slope' => $slope, 'label' => $label]);
     }
 
     public function linearTrend(array $data): float
@@ -57,5 +64,29 @@ final class SparlineValues extends Component
         $sumX2 = array_sum(array_map(fn (float|int $xi): int => $xi * $xi, $x));
 
         return ($n * $sumXY - $sumX * $sumY) / ($n * $sumX2 - $sumX * $sumX);
+    }
+
+    public function averageRelativeChange(array $data): ?float
+    {
+        $n = count($data);
+        if ($n < 2) {
+            return null;
+        }
+
+        $totalChange = 0;
+        $count = 0;
+
+        for ($i = 0; $i < $n - 1; $i++) {
+            $current = $data[$i];
+            $next = $data[$i + 1];
+
+            if ($current !== 0) {
+                $change = (($next - $current) / $current) * 100;
+                $totalChange += $change;
+                $count++;
+            }
+        }
+
+        return $count > 0 ? $totalChange / $count : null;
     }
 }
