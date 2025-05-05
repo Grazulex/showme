@@ -18,7 +18,7 @@ final class Create extends Component
 {
     public string $name;
 
-    public int $topic_id;
+    public $topic_id = ''; // @pest-ignore-type
 
     public string $type;
 

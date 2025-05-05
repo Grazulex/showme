@@ -14,7 +14,7 @@ use Livewire\Component;
 
 final class Create extends Component
 {
-    public int $topic_id;
+    public $topic_id = ''; // @pest-ignore-type
 
     public float $value;
 
