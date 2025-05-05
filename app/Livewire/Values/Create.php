@@ -55,7 +55,7 @@ final class Create extends Component
             ]
         );
 
-        $this->reset();
+        $this->reset(['topic_id', 'value']);
 
         Flux::toast(
             heading: 'Values',
