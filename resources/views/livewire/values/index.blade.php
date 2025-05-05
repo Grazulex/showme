@@ -15,6 +15,18 @@
 
 
         <flux:separator />
+
+        <div class="flex items-center gap-4 m-2">
+            <flux:select variant="listbox" size="sm" wire:model.live="filterTopicId" label="Filter by topic" placeholder="Select a topic">
+                <flux:select.option value="0">All</flux:select.option>
+                @foreach ($topics as $topic)
+                    <flux:select.option :value="$topic->id">{{ $topic->name }}</flux:select.option>
+                @endforeach
+            </flux:select>
+            <flux:date-picker size="sm" clearable label="Filter by date" mode="range" wire:model.live="filterDateRange" />
+        </div>
+
+        <flux:separator />
         <flux:table :paginate="$values" class="w-full">
             <flux:table.columns>
                 <flux:table.column>Topic</flux:table.column>
@@ -30,7 +42,7 @@
                             <flux:badge icon="{{$value->topic->unit->icon()}}" size="sm" :color="$value->topic->unit->color()" inset="top bottom">{{ $value->topic->name }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
-                            <flux:badge icon="calendar" size="sm" inset="top bottom">{{ \Carbon\Carbon::parse($value->created_at)->diffForHumans() }}</flux:badge>
+                            <flux:badge icon="calendar" size="sm" inset="top bottom">{{ \Carbon\Carbon::parse($value->created_at)->format('d/m/Y') }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
                             {{ $value->value }} {{ $value->topic->unit->value }}

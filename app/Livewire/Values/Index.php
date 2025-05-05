@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Values;
 
+use Flux\DateRange;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,6 +21,10 @@ final class Index extends Component
     public string $sortBy = 'created_at';
 
     public string $sortDirection = 'asc';
+
+    public int $filterTopicId = 0;
+
+    public ?DateRange $filterDateRange;
 
     #[On('reloadValues')]
     public function reloadValues(): void
@@ -41,11 +46,19 @@ final class Index extends Component
         );
     }
 
+    public function mount()
+    {
+        $this->filterDateRange = DateRange::thisMonth();
+    }
+
     public function render(): View
     {
         $values = $this->getValues();
+        $topics = Auth::user()->topics()
+            ->orderBy('name')
+            ->get();
 
-        return view('livewire.values.index', ['values' => $values]);
+        return view('livewire.values.index', ['values' => $values, 'topics' => $topics]);
     }
 
     public function sort(string $column): void
@@ -67,6 +80,8 @@ final class Index extends Component
     {
         return Auth::user()->values()
             ->tap(fn (Builder $query) => $this->sortBy !== '' && $this->sortBy !== '0' ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
+            ->tap(fn (Builder $query) => $this->filterTopicId !== 0 ? $query->where('topic_id', $this->filterTopicId) : $query)
+            ->tap(fn (Builder $query) => $this->filterDateRange ? $query->whereBetween('created_at', [$this->filterDateRange->start, $this->filterDateRange->end]) : $query)
             ->paginate(10);
     }
 }
