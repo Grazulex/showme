@@ -20,7 +20,8 @@
                 <flux:table.column>Desciption</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'unit'" :direction="$sortDirection" wire:click="sort('unit')">Unit</flux:table.column>
                 <flux:table.column>Goals</flux:table.column>
-                <flux:table.column>Values</flux:table.column>
+                <flux:table.column>Avg</flux:table.column>
+                <flux:table.column>Chart</flux:table.column>
                 <flux:table.column>Actions</flux:table.column>
             </flux:table.columns>
             <flux:table.rows>
@@ -33,6 +34,9 @@
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:badge icon="medal" size="sm" color="success" inset="top bottom">{{ $topic->goals->count() }}</flux:badge>
+                        </flux:table.cell>
+                        <flux:table.cell>
+                            <livewire:topics.avg-values :topic="$topic"  />
                         </flux:table.cell>
                         <flux:table.cell>
                             <livewire:topics.sparline-values :topic="$topic"  />
