@@ -4,4 +4,5 @@
             <flux:chart.line class="text-{{$color}}-500 dark:text-{{$color}}-400" />
         </flux:chart.svg>
     </flux:chart>
+{{$color}}#{{$slope}}
 </div>

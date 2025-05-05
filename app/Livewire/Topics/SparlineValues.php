@@ -45,7 +45,7 @@ final class SparlineValues extends Component
             $color = 'blue';
         }
 
-        return view('livewire.topics.sparline-values', ['color' => $color]);
+        return view('livewire.topics.sparline-values', ['color' => $color, 'slope' => $slope]);
     }
 
     public function linearTrend(array $data): float
