@@ -46,7 +46,7 @@ final class Index extends Component
         );
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->filterDateRange = DateRange::thisMonth();
     }
@@ -81,7 +81,7 @@ final class Index extends Component
         return Auth::user()->values()
             ->tap(fn (Builder $query) => $this->sortBy !== '' && $this->sortBy !== '0' ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
             ->tap(fn (Builder $query) => $this->filterTopicId !== 0 ? $query->where('topic_id', $this->filterTopicId) : $query)
-            ->tap(fn (Builder $query) => $this->filterDateRange ? $query->whereBetween('created_at', [$this->filterDateRange->start, $this->filterDateRange->end]) : $query)
+            ->tap(fn (Builder $query) => $this->filterDateRange instanceof DateRange ? $query->whereBetween('created_at', [$this->filterDateRange->start, $this->filterDateRange->end]) : $query)
             ->paginate(10);
     }
 }
