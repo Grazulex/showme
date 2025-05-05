@@ -37,15 +37,8 @@ final class SparlineValues extends Component
         if ($this->activeGoal instanceof Goal && $this->activeGoal->type === GoalTypeEnum::decrease) {
             $slope = -$slope;
         }
-        if ($slope > 0.05) {
-            $color = 'green';
-        } elseif ($slope < -0.05) {
-            $color = 'red';
-        } else {
-            $color = 'blue';
-        }
 
-        return view('livewire.topics.sparline-values', ['color' => $color, 'slope' => $slope]);
+        return view('livewire.topics.sparline-values', ['slope' => $slope]);
     }
 
     public function linearTrend(array $data): float
