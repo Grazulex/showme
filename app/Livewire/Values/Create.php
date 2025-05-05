@@ -6,7 +6,7 @@ namespace App\Livewire\Values;
 
 use App\Actions\Values\CreateValueAction;
 use App\Models\Topic;
-use DateTimeImmutable;
+use Carbon\CarbonInterface;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -18,11 +18,11 @@ final class Create extends Component
 
     public float $value;
 
-    public DateTimeImmutable $created_at;
+    public ?CarbonInterface $created_at;
 
     public function mount(): void
     {
-        $this->created_at = new DateTimeImmutable();
+        $this->created_at = now();
     }
 
     public function render(): View
