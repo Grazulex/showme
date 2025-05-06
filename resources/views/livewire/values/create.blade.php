@@ -20,7 +20,7 @@
             </flux:select>
 
             <flux:input.group>
-                <flux:input wire:model="value" placeholder="The value" />
+                <flux:input wire:model="value" placeholder="The value" type="number" step="0.01" pattern="[0-9]+([\.,][0-9]+)?" />
                 <flux:input.group.suffix>t</flux:input.group.suffix>
             </flux:input.group>
 
