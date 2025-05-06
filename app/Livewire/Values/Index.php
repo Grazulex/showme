@@ -20,7 +20,7 @@ final class Index extends Component
 
     public string $sortBy = 'created_at';
 
-    public string $sortDirection = 'asc';
+    public string $sortDirection = 'desc';
 
     public int $filterTopicId = 0;
 
