@@ -39,8 +39,14 @@ final class CreateValueAction
                     $color = 'blue';
                 }
             }
-            if ($last_goal->type === GoalTypeEnum::maintain && $diff === 0) {
-                $color = 'green';
+            if ($last_goal->type === GoalTypeEnum::maintain) {
+                if ($diff > 0) {
+                    $color = 'red';
+                } elseif ($diff < 0) {
+                    $color = 'red';
+                } else {
+                    $color = 'green';
+                }
             }
         } else {
             $color = 'blue';
