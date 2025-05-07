@@ -12,7 +12,7 @@ use App\Services\Math;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-final class AvgValues extends Component
+final class SparklineValues extends Component
 {
     public array $data;
 
@@ -46,6 +46,6 @@ final class AvgValues extends Component
             $label = null;
         }
 
-        return view('livewire.topics.avg-values', ['slope' => $slope, 'label' => $label]);
+        return view('livewire.topics.sparkline-values', ['slope' => $slope, 'label' => $label]);
     }
 }

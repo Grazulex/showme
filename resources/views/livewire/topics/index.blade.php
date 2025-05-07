@@ -39,7 +39,7 @@
                             <livewire:topics.avg-values :topic="$topic"  />
                         </flux:table.cell>
                         <flux:table.cell>
-                            <livewire:topics.sparline-values :topic="$topic"  />
+                            <livewire:topics.sparkline-values :topic="$topic"  />
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:button.group>
