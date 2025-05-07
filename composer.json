@@ -51,8 +51,7 @@
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
             "@php artisan ide-helper:generate --ansi",
-            "@php artisan ide-helper:meta --ansi",
-            "@php artisan ide-helper:models --write --ansi"
+            "@php artisan ide-helper:meta --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
