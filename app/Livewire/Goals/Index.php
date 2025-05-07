@@ -32,8 +32,8 @@ final class Index extends Component
         $goal = Auth::user()->goals()->findOrFail($goalId);
         $goal->delete();
         Flux::toast(
-            heading: 'Goals',
             text: 'Goal deleted successfully.',
+            heading: 'Goals',
             variant: 'success'
         );
     }

@@ -6,6 +6,9 @@ namespace App\Models;
 
 use App\Enums\GoalTypeEnum;
 use Carbon\CarbonInterface;
+use Database\Factories\GoalFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,10 +26,27 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property CarbonInterface|null $updated_at
  * @property-read User $user
  * @property-read Topic $topic
+ *
+ * @method static GoalFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Goal newModelQuery()
+ * @method static Builder<static>|Goal newQuery()
+ * @method static Builder<static>|Goal query()
+ * @method static Builder<static>|Goal whereCreatedAt($value)
+ * @method static Builder<static>|Goal whereEndedAt($value)
+ * @method static Builder<static>|Goal whereId($value)
+ * @method static Builder<static>|Goal whereName($value)
+ * @method static Builder<static>|Goal whereStartedAt($value)
+ * @method static Builder<static>|Goal whereTarget($value)
+ * @method static Builder<static>|Goal whereTopicId($value)
+ * @method static Builder<static>|Goal whereType($value)
+ * @method static Builder<static>|Goal whereUpdatedAt($value)
+ * @method static Builder<static>|Goal whereUserId($value)
+ *
+ * @mixin Eloquent
  */
 final class Goal extends Model
 {
-    /** @use HasFactory<\Database\Factories\GoalFactory> */
+    /** @use HasFactory<GoalFactory> */
     use HasFactory;
 
     protected $fillable = [

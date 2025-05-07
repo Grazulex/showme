@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Carbon\CarbonInterface;
+use Database\Factories\ValueFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,10 +23,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property CarbonInterface|null $updated_at
  * @property Topic $topic
  * @property User $user
+ *
+ * @method static ValueFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Value newModelQuery()
+ * @method static Builder<static>|Value newQuery()
+ * @method static Builder<static>|Value query()
+ * @method static Builder<static>|Value whereColor($value)
+ * @method static Builder<static>|Value whereCreatedAt($value)
+ * @method static Builder<static>|Value whereDiffWithLast($value)
+ * @method static Builder<static>|Value whereId($value)
+ * @method static Builder<static>|Value whereTopicId($value)
+ * @method static Builder<static>|Value whereUpdatedAt($value)
+ * @method static Builder<static>|Value whereUserId($value)
+ * @method static Builder<static>|Value whereValue($value)
+ *
+ * @mixin Eloquent
  */
 final class Value extends Model
 {
-    /** @use HasFactory<\Database\Factories\ValueFactory> */
+    /** @use HasFactory<ValueFactory> */
     use HasFactory;
 
     protected $fillable = [

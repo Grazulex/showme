@@ -1,5 +1,5 @@
 <div>
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl"
+    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="relative mb-6 w-full">
             <flux:heading size="xl" level="1">
                 Values
@@ -7,23 +7,18 @@
                     <flux:button size="sm" icon="plus" />
                 </flux:modal.trigger>
             </flux:heading>
-            <flux:subheading size="lg" class="mb-6">Manage your Values</flux:subheading>
+            <flux:subheading size="lg">Manage your Values</flux:subheading>
         </div>
-
-        <livewire:values.create />
-        <livewire:values.edit />
-
-
         <flux:separator />
 
         <div class="flex items-center gap-4 m-2">
-            <flux:select variant="listbox" size="sm" wire:model.live="filterTopicId" label="Filter by topic" placeholder="Select a topic">
+            <flux:select size="sm" wire:model.live="filterTopicId" label="Filter by topic" placeholder="Select a topic">
                 <flux:select.option value="0">All</flux:select.option>
                 @foreach ($topics as $topic)
                     <flux:select.option :value="$topic->id">{{ $topic->name }}</flux:select.option>
                 @endforeach
             </flux:select>
-            <flux:date-picker size="sm" label="Filter by date" mode="range" wire:model.live="filterDateRange" clearable />
+            <flux:date-picker size="sm" label="Filter by date" mode="range" wire:model.live="filterDateRange" clearable="true"/>
         </div>
 
         <flux:separator />
@@ -65,4 +60,6 @@
             </flux:table.rows>
         </flux:table>
     </div>
+    <livewire:values.create />
+    <livewire:values.edit />
 </div>

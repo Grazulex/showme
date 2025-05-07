@@ -7,8 +7,10 @@ namespace App\Models;
 use App\Enums\UnitEnum;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use Database\Factories\TopicFactory;
 use DateTimeImmutable;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,10 +29,27 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $goals_count
  * @property-read Collection<int, Value> $values
  * @property-read int|null $values_count
+ * @property string $slug
+ * @property string $description
+ *
+ * @method static TopicFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Topic newModelQuery()
+ * @method static Builder<static>|Topic newQuery()
+ * @method static Builder<static>|Topic query()
+ * @method static Builder<static>|Topic whereCreatedAt($value)
+ * @method static Builder<static>|Topic whereDescription($value)
+ * @method static Builder<static>|Topic whereId($value)
+ * @method static Builder<static>|Topic whereName($value)
+ * @method static Builder<static>|Topic whereSlug($value)
+ * @method static Builder<static>|Topic whereUnit($value)
+ * @method static Builder<static>|Topic whereUpdatedAt($value)
+ * @method static Builder<static>|Topic whereUserId($value)
+ *
+ * @mixin Eloquent
  */
 final class Topic extends Model
 {
-    /** @use HasFactory<\Database\Factories\TopicFactory> */
+    /** @use HasFactory<TopicFactory> */
     use HasFactory;
 
     protected $fillable = [

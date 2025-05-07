@@ -24,7 +24,7 @@ final class AvgValues extends Component
     {
         $this->data = Value::where('topic_id', $topic->id)
             ->where('created_at', '>=', now()->subDays(30))
-            ->orderBy('created_at', 'asc')
+            ->orderBy('created_at')
             ->pluck('value')
             ->toArray();
 

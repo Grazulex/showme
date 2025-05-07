@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Throwable;
 
 final class Edit extends Component
 {
@@ -48,6 +49,9 @@ final class Edit extends Component
             ]);
     }
 
+    /**
+     * @throws Throwable
+     */
     public function submit(): void
     {
         $this->validate([
@@ -69,8 +73,8 @@ final class Edit extends Component
         $this->reset();
 
         Flux::toast(
-            heading: 'Value updated',
             text: 'The value has been updated',
+            heading: 'Value updated',
             variant: 'success'
         );
 

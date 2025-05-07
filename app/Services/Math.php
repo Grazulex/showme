@@ -47,4 +47,17 @@ final class Math
 
         return $count > 0 ? $totalChange / $count : null;
     }
+
+    public function standardDeviation(array $data): float
+    {
+        $n = count($data);
+        if ($n === 0) {
+            return 0;
+        }
+
+        $mean = array_sum($data) / $n;
+        $sumOfSquares = array_reduce($data, fn (float|int $carry, float|int $value): float|int => $carry + ($value - $mean) ** 2, 0);
+
+        return sqrt($sumOfSquares / $n);
+    }
 }

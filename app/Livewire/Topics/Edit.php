@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Throwable;
 
 final class Edit extends Component
 {
@@ -41,6 +42,9 @@ final class Edit extends Component
         Flux::modal('edit-topic')->show();
     }
 
+    /**
+     * @throws Throwable
+     */
     public function submit(): void
     {
         $this->validate([
@@ -79,8 +83,8 @@ final class Edit extends Component
         );
 
         Flux::toast(
-            heading: 'topics',
             text: 'Topic updated successfully',
+            heading: 'topics',
             variant: 'success',
         );
 

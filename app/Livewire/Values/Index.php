@@ -40,8 +40,8 @@ final class Index extends Component
         // TODO : update diff & color next entry
 
         Flux::toast(
-            heading: 'Values',
             text: 'Value deleted successfully.',
+            heading: 'Values',
             variant: 'success'
         );
     }

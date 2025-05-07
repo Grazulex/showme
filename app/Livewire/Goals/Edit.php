@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Throwable;
 
 final class Edit extends Component
 {
@@ -66,6 +67,9 @@ final class Edit extends Component
         );
     }
 
+    /**
+     * @throws Throwable
+     */
     public function submit(): void
     {
         $this->validate([

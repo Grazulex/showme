@@ -11,6 +11,7 @@ use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Throwable;
 
 final class Create extends Component
 {
@@ -37,6 +38,9 @@ final class Create extends Component
         );
     }
 
+    /**
+     * @throws Throwable
+     */
     public function submit(): void
     {
         $this->validate([
@@ -58,8 +62,8 @@ final class Create extends Component
         $this->reset(['topic_id', 'value']);
 
         Flux::toast(
-            heading: 'Values',
             text: 'Value created successfully.',
+            heading: 'Values',
             variant: 'success',
         );
 

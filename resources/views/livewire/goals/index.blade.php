@@ -1,5 +1,5 @@
 <div>
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl"
+    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="relative mb-6 w-full">
             <flux:heading size="xl" level="1">
                 Goals
@@ -7,12 +7,8 @@
                     <flux:button size="sm" icon="plus" />
                 </flux:modal.trigger>
             </flux:heading>
-            <flux:subheading size="lg" class="mb-6">Manage your Goals</flux:subheading>
+            <flux:subheading size="lg">Manage your Goals</flux:subheading>
         </div>
-
-        <livewire:goals.create />
-        <livewire:goals.edit />
-
         <flux:separator />
         <flux:table :paginate="$goals" class="w-full">
             <flux:table.columns>
@@ -52,4 +48,6 @@
             </flux:table.rows>
         </flux:table>
     </div>
+    <livewire:goals.create />
+    <livewire:goals.edit />
 </div>

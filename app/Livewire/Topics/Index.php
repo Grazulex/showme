@@ -38,7 +38,11 @@ final class Index extends Component
     {
         $topic = Auth::user()->topics()->findOrFail($topicId);
         $topic->delete();
-        Flux::toast(heading : 'Topics', text: 'Topic deleted successfully.', variant: 'success');
+        Flux::toast(
+            text: 'Topic deleted successfully.',
+            heading: 'Topics',
+            variant: 'success'
+        );
     }
 
     public function edit(int $topicId): void

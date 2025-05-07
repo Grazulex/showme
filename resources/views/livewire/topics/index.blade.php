@@ -1,5 +1,5 @@
 <div>
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl"
+    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="relative mb-6 w-full">
             <flux:heading size="xl" level="1">
                 Topics
@@ -7,11 +7,8 @@
                     <flux:button size="sm" icon="plus" />
                 </flux:modal.trigger>
             </flux:heading>
-            <flux:subheading size="lg" class="mb-6">Manage your Topics</flux:subheading>
+            <flux:subheading size="lg">Manage your Topics</flux:subheading>
         </div>
-
-        <livewire:topics.create />
-        <livewire:topics.edit />
 
         <flux:separator />
         <flux:table :paginate="$topics" class="w-full">
@@ -52,4 +49,6 @@
             </flux:table.rows>
         </flux:table>
     </div>
+    <livewire:topics.create />
+    <livewire:topics.edit />
 </div>
