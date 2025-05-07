@@ -13,9 +13,6 @@ use Throwable;
 final class UpdateValueAction
 {
     /**
-     * @param Value $value
-     * @param array $attributes
-     * @return Value
      * @throws Throwable
      */
     public function handle(Value $value, array $attributes): Value

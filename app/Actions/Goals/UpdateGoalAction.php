@@ -11,9 +11,6 @@ use Throwable;
 final class UpdateGoalAction
 {
     /**
-     * @param Goal $goal
-     * @param array $attributes
-     * @return Goal
      * @throws Throwable
      */
     public function handle(Goal $goal, array $attributes): Goal

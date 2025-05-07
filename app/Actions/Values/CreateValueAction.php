@@ -8,17 +8,12 @@ use App\Enums\GoalTypeEnum;
 use App\Models\Topic;
 use App\Models\User;
 use App\Models\Value;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 use Throwable;
 
 final class CreateValueAction
 {
     /**
-     * @param User $user
-     * @param array $attributes
-     * @return Value
      * @throws Throwable
      */
     public function handle(User $user, array $attributes): Value

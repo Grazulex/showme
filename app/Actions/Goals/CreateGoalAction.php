@@ -12,9 +12,6 @@ use Throwable;
 final class CreateGoalAction
 {
     /**
-     * @param User $user
-     * @param array $attributes
-     * @return Goal
      * @throws Throwable
      */
     public function handle(User $user, array $attributes): Goal

@@ -12,9 +12,6 @@ use Throwable;
 final class UpdateTopicAction
 {
     /**
-     * @param Topic $topic
-     * @param array $attributes
-     * @return Topic
      * @throws Throwable
      */
     public function handle(Topic $topic, array $attributes): Topic

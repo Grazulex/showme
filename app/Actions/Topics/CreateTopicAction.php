@@ -13,9 +13,6 @@ use Throwable;
 final class CreateTopicAction
 {
     /**
-     * @param User $user
-     * @param array $attributes
-     * @return Topic
      * @throws Throwable
      */
     public function handle(User $user, array $attributes): Topic
