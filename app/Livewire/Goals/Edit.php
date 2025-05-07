@@ -91,9 +91,9 @@ final class Edit extends Component
             'started_at' => [
                 'required',
                 'date',
-                'after_or_equal:today',
             ],
             'ended_at' => [
+                'required',
                 'date',
                 'after:started_at',
             ],
