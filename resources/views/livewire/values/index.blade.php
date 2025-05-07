@@ -23,7 +23,7 @@
                     <flux:select.option :value="$topic->id">{{ $topic->name }}</flux:select.option>
                 @endforeach
             </flux:select>
-            <flux:date-picker size="sm" clearable label="Filter by date" mode="range" wire:model.live="filterDateRange" />
+            <flux:date-picker size="sm" label="Filter by date" mode="range" wire:model.live="filterDateRange" clearable />
         </div>
 
         <flux:separator />

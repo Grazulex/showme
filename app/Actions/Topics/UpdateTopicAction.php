@@ -7,9 +7,16 @@ namespace App\Actions\Topics;
 use App\Models\Topic;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Throwable;
 
 final class UpdateTopicAction
 {
+    /**
+     * @param Topic $topic
+     * @param array $attributes
+     * @return Topic
+     * @throws Throwable
+     */
     public function handle(Topic $topic, array $attributes): Topic
     {
         return DB::transaction(function () use ($topic, $attributes): Topic {

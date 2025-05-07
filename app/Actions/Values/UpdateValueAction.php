@@ -8,9 +8,16 @@ use App\Enums\GoalTypeEnum;
 use App\Models\Topic;
 use App\Models\Value;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 final class UpdateValueAction
 {
+    /**
+     * @param Value $value
+     * @param array $attributes
+     * @return Value
+     * @throws Throwable
+     */
     public function handle(Value $value, array $attributes): Value
     {
 
@@ -26,8 +33,6 @@ final class UpdateValueAction
                     $color = 'green';
                 } elseif ($diff > 0) {
                     $color = 'red';
-                } else {
-                    $color = 'blue';
                 }
             }
             if ($last_goal->type === GoalTypeEnum::increase) {
@@ -35,8 +40,6 @@ final class UpdateValueAction
                     $color = 'green';
                 } elseif ($diff < 0) {
                     $color = 'red';
-                } else {
-                    $color = 'blue';
                 }
             }
             if ($last_goal->type === GoalTypeEnum::maintain) {
@@ -48,8 +51,6 @@ final class UpdateValueAction
                     $color = 'green';
                 }
             }
-        } else {
-            $color = 'blue';
         }
 
         // TODO: Update diif and color next entry

@@ -6,9 +6,16 @@ namespace App\Actions\Goals;
 
 use App\Models\Goal;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 final class UpdateGoalAction
 {
+    /**
+     * @param Goal $goal
+     * @param array $attributes
+     * @return Goal
+     * @throws Throwable
+     */
     public function handle(Goal $goal, array $attributes): Goal
     {
         return DB::transaction(function () use ($goal, $attributes): Goal {

@@ -7,9 +7,16 @@ namespace App\Actions\Goals;
 use App\Models\Goal;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 final class CreateGoalAction
 {
+    /**
+     * @param User $user
+     * @param array $attributes
+     * @return Goal
+     * @throws Throwable
+     */
     public function handle(User $user, array $attributes): Goal
     {
         return DB::transaction(function () use ($user, $attributes) {

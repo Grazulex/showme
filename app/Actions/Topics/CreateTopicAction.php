@@ -8,11 +8,15 @@ use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Throwable;
 
 final class CreateTopicAction
 {
     /**
-     * Create a new class instance.
+     * @param User $user
+     * @param array $attributes
+     * @return Topic
+     * @throws Throwable
      */
     public function handle(User $user, array $attributes): Topic
     {

@@ -8,10 +8,19 @@ use App\Enums\GoalTypeEnum;
 use App\Models\Topic;
 use App\Models\User;
 use App\Models\Value;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+use Throwable;
 
 final class CreateValueAction
 {
+    /**
+     * @param User $user
+     * @param array $attributes
+     * @return Value
+     * @throws Throwable
+     */
     public function handle(User $user, array $attributes): Value
     {
         $topic = Topic::findOrFail($attributes['topic_id']);
@@ -26,8 +35,6 @@ final class CreateValueAction
                     $color = 'green';
                 } elseif ($diff > 0) {
                     $color = 'red';
-                } else {
-                    $color = 'blue';
                 }
             }
             if ($last_goal->type === GoalTypeEnum::increase) {
@@ -48,8 +55,6 @@ final class CreateValueAction
                     $color = 'green';
                 }
             }
-        } else {
-            $color = 'blue';
         }
 
         return DB::transaction(function () use ($user, $attributes, $diff, $color) {
