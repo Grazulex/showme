@@ -90,8 +90,8 @@ final class Create extends Component
         $this->reset();
 
         Flux::toast(
-            heading: 'Goals',
             text: 'Goal created successfully.',
+            heading: 'Goals',
             variant: 'success'
         );
 

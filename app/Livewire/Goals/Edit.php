@@ -41,7 +41,7 @@ final class Edit extends Component
         $this->name = $goal->name;
         $this->topic_id = $goal->topic_id;
         $this->type = $goal->type->value;
-        $this->target = $goal->target;
+        $this->target = (float) $goal->target;
         $this->started_at = Carbon::parse($goal->started_at);
         $this->ended_at = Carbon::parse($goal->ended_at);
 
@@ -115,8 +115,8 @@ final class Edit extends Component
         $this->reset();
 
         Flux::toast(
-            heading: 'Goal updated',
             text: 'The goal has been updated successfully.',
+            heading: 'Goal updated',
             variant: 'success',
         );
 
