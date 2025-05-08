@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 namespace App\Livewire\Dashboard\Charts;
 
+use App\Enums\GoalTypeEnum;
 use App\Models\Goal;
 use App\Models\Topic;
 use App\Models\Value;
-use App\Services\Math;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 final class Topics extends Component
 {
     public ?Topic $topic;
 
-    public ?Goal $goal;
+    public Collection $values;
 
-    public array $data = [];
+    public array $chartData = [];
+
+    public ?float $trend = null;
+
+    public ?float $score = null;
+
+    public ?string $trendState = null;
 
     public function mount(int $topic_id): void
     {
@@ -26,31 +32,63 @@ final class Topics extends Component
         if (! $this->topic instanceof Topic) {
             return;
         }
+        $this->computeProgress();
+    }
 
+    public function computeProgress(): void
+    {
+        $goal = $this->topic->getFirstActifGoal();
         /** @var Collection<Value> $values */
-        $values = Value::where('topic_id', $this->topic->id)
-            ->where('created_at', '>=', now()->subDays(90))
+        $values = $this->topic->values()
+            ->where('user_id', auth()->id())
             ->orderBy('created_at')
             ->get();
 
-        foreach ($values as $value) {
-            $this->data[] = [
-                'date' => $value->created_at->format('Y-m-d'),
-                'value' => $value->value,
-            ];
+        $this->values = $values;
+
+        if ($values->count() < 2 || ! $goal instanceof Goal) {
+            $this->chartData = [];
+            $this->trend = null;
+            $this->score = null;
+            $this->trendState = 'neutral';
+
+            return;
         }
 
-        $this->goal = $this->topic->getFirstActifGoal();
+        // Préparation des données pour le graphique
+        $this->chartData = $values->map(function (Value $v) use ($goal): array {
+            return [
+                'date' => $v->created_at->format('Y-m-d'),
+                'value' => $v->value,
+                'target' => $goal->target,
+            ];
+        })->toArray();
+
+        // Calcul de la tendance moyenne
+        $this->trend = $values
+            ->map(fn (Value $item, int $i): ?float => $i > 0 ? $item->value - $values[$i - 1]->value : null)
+            ->filter() // Collection<int|float>
+            ->avg(); // float|null
+
+        $latest = $values->last()->value;
+        $target = $goal->target;
+
+        // Calcul du score d’atteinte
+        if ($goal->type === GoalTypeEnum::increase) {
+            $this->score = $latest >= $target ? 100 : round(($latest / $target) * 100, 1);
+            $this->trendState = $this->trend > 0 ? 'good' : 'bad';
+        } elseif ($goal->type === GoalTypeEnum::decrease) {
+            $this->score = $latest <= $target ? 100 : round(($target / $latest) * 100, 1);
+            $this->trendState = $this->trend < 0 ? 'good' : 'bad';
+        } else { // maintain
+            $diff = abs($latest - $target);
+            $this->score = max(0, 100 - $diff);
+            $this->trendState = $diff < 1 ? 'good' : ($diff < 5 ? 'neutral' : 'bad');
+        }
     }
 
-    public function render(Math $math): View
+    public function render(): View
     {
-        $slope = $math->linearTrend(array_column($this->data, 'value'));
-
-        return view('livewire.dashboard.charts.topics',
-            [
-                'slope' => $slope,
-            ]
-        );
+        return view('livewire.dashboard.charts.topics');
     }
 }
