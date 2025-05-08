@@ -8,7 +8,7 @@ test('check value Calories', function (): void {
     expect($unit->value)
         ->toEqual('cal');
     expect($unit->label())
-        ->toEqual('Calories');
+        ->toEqual('Calorie');
     expect($unit->color())
         ->toEqual('yellow');
     expect($unit->icon())

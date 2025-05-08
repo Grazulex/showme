@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Livewire\Topics;
 
-use App\Enums\GoalTypeEnum;
 use App\Models\Goal;
 use App\Models\Topic;
 use App\Models\Value;

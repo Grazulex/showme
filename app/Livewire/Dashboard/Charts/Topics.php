@@ -6,8 +6,10 @@ namespace App\Livewire\Dashboard\Charts;
 
 use App\Models\Goal;
 use App\Models\Topic;
+use App\Models\Value;
 use App\Services\Math;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 final class Topics extends Component
@@ -21,20 +23,22 @@ final class Topics extends Component
     public function mount(int $topic_id): void
     {
         $this->topic = Topic::find($topic_id);
-        if (! $this->topic) {
+        if (! $this->topic instanceof Topic) {
             return;
         }
-        $values = $this->topic->values()
+
+        /** @var Collection<Value> $values */
+        $values = Value::where('topic_id', $this->topic->id)
             ->where('created_at', '>=', now()->subDays(90))
             ->orderBy('created_at')
-            ->select(['created_at', 'value'])
             ->get();
-        $this->data = $values->map(function ($value) {
-            return [
+
+        foreach ($values as $value) {
+            $this->data[] = [
                 'date' => $value->created_at->format('Y-m-d'),
                 'value' => $value->value,
             ];
-        })->toArray();
+        }
 
         $this->goal = $this->topic->getFirstActifGoal();
     }
