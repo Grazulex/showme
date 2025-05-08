@@ -26,6 +26,9 @@ final class Topics extends Component
 
     public ?string $trendState = null;
 
+    public ?float $gap = null;
+
+
     public function mount(int $topic_id): void
     {
         $this->topic = Topic::find($topic_id);
@@ -72,6 +75,9 @@ final class Topics extends Component
 
         $latest = $values->last()->value;
         $target = $goal->target;
+
+        $this->gap = $latest - $target; // peut être positif, négatif ou 0
+
 
         // Calcul du score d’atteinte
         if ($goal->type === GoalTypeEnum::increase) {

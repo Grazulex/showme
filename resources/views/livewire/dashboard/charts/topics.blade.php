@@ -41,29 +41,32 @@
 
             <div class="text-sm text-gray-600 flex justify-between">
                 <div>
-                    Score : <span class="font-bold">{{ $score }}%</span>
+                    Score: <span class="font-bold">{{ $score }}%</span>
                 </div>
                 <div>
-                    Tendance ({{$trend}}) :
+                    Delta:
+                    <span class="font-bold">
+                        {{ $gap > 0 ? '+' : '' }}{{ number_format($gap, 1) }} {{ $topic->unit->value }}
+                    </span>
+                </div>
+                <div>
+                    Trend:
                     <span class="inline-flex items-center font-bold
                         {{ $trendState === 'good' ? 'text-green-600' :
                            ($trendState === 'bad' ? 'text-red-600' : 'text-blue-600') }}">
                         {{ ucfirst($trendState) }}
-                        @if ($trend !== null)
-                            @if ($trend > 0)
-                                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M5 15l5-5 5 5H5z" />
-                                </svg> <!-- Flèche vers le haut -->
-                            @elseif ($trend < 0)
-                                <svg class="w-4 h-4 ml-1 rotate-180" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M5 15l5-5 5 5H5z" />
-                                </svg> <!-- Flèche vers le bas -->
-                            @else
-                                <svg class="w-4 h-4 ml-1 rotate-90" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M5 15l5-5 5 5H5z" />
-                                </svg> <!-- Flèche horizontale -->
-                            @endif
-                        @endif
+                        @php
+                            $arrowRotation = match(true) {
+                                $trend === null => 'rotate-90 text-gray-400', // neutre visuel
+                                $trend > 0      => '',                        // haut
+                                $trend < 0      => 'rotate-180',              // bas
+                                default         => 'rotate-90',               // stable
+                            };
+                        @endphp
+
+                        <svg class="w-4 h-4 ml-1 {{ $arrowRotation }}" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M5 15l5-5 5 5H5z" />
+                        </svg>
                     </span>
                 </div>
             </div>
