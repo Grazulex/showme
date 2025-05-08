@@ -39,7 +39,7 @@
                     </flux:chart.tooltip>
                 </flux:chart.viewport>
                 <div class="flex justify-center gap-4 pt-4">
-                    <flux:chart.legend label="{{ $this->topic->unit->label() }} ({{ $slope }}%)">
+                    <flux:chart.legend label="{{ $this->topic->unit->label() }} ({{ number_format($slope,2) }}%)">
                         @if($slope > 0.05)
                             <flux:chart.legend.indicator class="bg-green-500" />
                         @elseif($slope < -0.05)
