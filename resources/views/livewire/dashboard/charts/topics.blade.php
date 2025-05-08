@@ -34,8 +34,8 @@
 
                 <flux:chart.tooltip>
                     <flux:chart.tooltip.heading field="date" :format="['year' => 'numeric', 'month' => 'numeric', 'day' => 'numeric']" />
-                    <flux:chart.tooltip.value field="value" label="Valeur" />
-                    <flux:chart.tooltip.value field="target" label="Objectif" />
+                    <flux:chart.tooltip.value field="value" label="Valeur ({{ $topic->unit->value }})" />
+                    <flux:chart.tooltip.value field="target" label="Objectif ({{ $topic->unit->value }})" />
                 </flux:chart.tooltip>
             </flux:chart>
 
@@ -45,12 +45,26 @@
                 </div>
                 <div>
                     Tendance :
-                    <span class="font-bold {{
-                    $trendState === 'good' ? 'text-green-600' :
-                    ($trendState === 'bad' ? 'text-red-600' : 'text-blue-600')
-                }}">
-                    {{ ucfirst($trendState) }}
-                </span>
+                    <span class="inline-flex items-center font-bold
+                        {{ $trendState === 'good' ? 'text-green-600' :
+                           ($trendState === 'bad' ? 'text-red-600' : 'text-blue-600') }}">
+                        {{ ucfirst($trendState) }}
+                        @if ($trend !== null)
+                            @if ($trend > 0)
+                                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M5 15l5-5 5 5H5z" />
+                                </svg> <!-- Flèche vers le haut -->
+                            @elseif ($trend < 0)
+                                <svg class="w-4 h-4 ml-1 rotate-180" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M5 15l5-5 5 5H5z" />
+                                </svg> <!-- Flèche vers le bas -->
+                            @else
+                                <svg class="w-4 h-4 ml-1 rotate-90" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M5 15l5-5 5 5H5z" />
+                                </svg> <!-- Flèche horizontale -->
+                            @endif
+                        @endif
+                    </span>
                 </div>
             </div>
         </div>
