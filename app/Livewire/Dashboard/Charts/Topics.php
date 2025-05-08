@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Dashboard\Charts;
 
 use App\Models\Topic;
+use App\Services\Math;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -33,8 +34,14 @@ final class Topics extends Component
         })->toArray();
     }
 
-    public function render(): View
+    public function render(Math $math): View
     {
-        return view('livewire.dashboard.charts.topics');
+        $slope = $math->linearTrend(array_column($this->data, 'value'));
+
+        return view('livewire.dashboard.charts.topics',
+            [
+                'slope' => $slope,
+            ]
+        );
     }
 }
