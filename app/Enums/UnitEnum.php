@@ -19,7 +19,7 @@ enum UnitEnum: string
             self::centimeter => 'Centimeter',
             self::kilometer => 'Kilometer',
             self::kilometerperhour => 'Kilometer per hour',
-            self::calories => 'Calories',
+            self::calories => 'Calorie',
         };
     }
 
