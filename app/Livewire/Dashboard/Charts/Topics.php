@@ -16,6 +16,8 @@ final class Topics extends Component
 {
     public ?Topic $topic;
 
+    public ?Goal $goal;
+
     public Collection $values;
 
     public array $chartData = [];
@@ -28,7 +30,6 @@ final class Topics extends Component
 
     public ?float $gap = null;
 
-
     public function mount(int $topic_id): void
     {
         $this->topic = Topic::find($topic_id);
@@ -40,7 +41,8 @@ final class Topics extends Component
 
     public function computeProgress(): void
     {
-        $goal = $this->topic->getFirstActifGoal();
+        $this->goal = $this->topic->getFirstActifGoal();
+        $goal = $this->goal;
         /** @var Collection<Value> $values */
         $values = $this->topic->values()
             ->where('user_id', auth()->id())
@@ -77,7 +79,6 @@ final class Topics extends Component
         $target = $goal->target;
 
         $this->gap = $latest - $target; // peut être positif, négatif ou 0
-
 
         // Calcul du score d’atteinte
         if ($goal->type === GoalTypeEnum::increase) {
