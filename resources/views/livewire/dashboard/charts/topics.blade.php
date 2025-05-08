@@ -44,7 +44,7 @@
                     Score : <span class="font-bold">{{ $score }}%</span>
                 </div>
                 <div>
-                    Tendance :
+                    Tendance ({{$trend}}) :
                     <span class="inline-flex items-center font-bold
                         {{ $trendState === 'good' ? 'text-green-600' :
                            ($trendState === 'bad' ? 'text-red-600' : 'text-blue-600') }}">
