@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Dashboard\Charts;
 
+use App\Models\Goal;
 use App\Models\Topic;
 use App\Services\Math;
 use Illuminate\Contracts\View\View;
@@ -12,6 +13,8 @@ use Livewire\Component;
 final class Topics extends Component
 {
     public ?Topic $topic;
+
+    public ?Goal $goal;
 
     public array $data = [];
 
@@ -32,6 +35,8 @@ final class Topics extends Component
                 'value' => $value->value,
             ];
         })->toArray();
+
+        $this->goal = $this->topic->getFirstActifGoal();
     }
 
     public function render(Math $math): View

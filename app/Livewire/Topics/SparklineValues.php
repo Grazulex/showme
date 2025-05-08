@@ -35,17 +35,7 @@ final class SparklineValues extends Component
     public function render(Math $math): View
     {
         $slope = $math->linearTrend($this->data);
-        $avg = $math->averageRelativeChange($this->data);
-        if ($this->activeGoal instanceof Goal && $this->activeGoal->type === GoalTypeEnum::decrease) {
-            $slope = -$slope;
-        }
 
-        if (! is_null($avg)) {
-            $label = ($avg > 0 ? '+' : '').number_format($avg, 2);
-        } else {
-            $label = null;
-        }
-
-        return view('livewire.topics.sparkline-values', ['slope' => $slope, 'label' => $label]);
+        return view('livewire.topics.sparkline-values', ['slope' => $slope]);
     }
 }

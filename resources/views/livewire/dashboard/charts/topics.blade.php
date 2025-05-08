@@ -4,6 +4,9 @@
             <flux:heading>{{ $this->topic->name }}</flux:heading>
             <flux:text class="mt-2">{{ $this->topic->description }}</flux:text>
             <flux:chart wire:model="data" class="aspect-3/1">
+                <flux:chart.summary>
+                    <flux:chart.summary.value field="value" fallback="{{ $this->goal->target }} {{ $this->topic->unit->value }}" :format="['style' => 'unit', 'unit' => strtolower($this->topic->unit->label())]" />
+                </flux:chart.summary>
                 <flux:chart.viewport class="aspect-3/1">
                     <flux:chart.svg>
                         @if ($slope > 0.05)
