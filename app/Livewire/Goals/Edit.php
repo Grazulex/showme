@@ -14,6 +14,7 @@ use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Throwable;
@@ -102,6 +103,27 @@ final class Edit extends Component
                 'after:started_at',
             ],
         ]);
+
+        $overlappingGoal = Goal::query()
+            ->where('user_id', Auth::id())
+            ->where('topic_id', $this->topic_id)
+            ->where('id', '!=', $this->goalId)
+            ->where(function ($query) {
+                $query->whereBetween('started_at', [$this->started_at, $this->ended_at])
+                    ->orWhereBetween('ended_at', [$this->started_at, $this->ended_at])
+                    ->orWhere(function ($query) {
+                        $query->where('started_at', '<=', $this->started_at)
+                            ->where('ended_at', '>=', $this->ended_at);
+                    });
+            })
+            ->exists();
+
+        if ($overlappingGoal) {
+            throw ValidationException::withMessages([
+                'started_at' => 'A goal already exists for this topic and user within the specified date range.',
+                'ended_at' => 'A goal already exists for this topic and user within the specified date range.',
+            ]);
+        }
 
         $action = new UpdateGoalAction();
         $action->handle(

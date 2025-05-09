@@ -6,12 +6,14 @@ namespace App\Livewire\Goals;
 
 use App\Actions\Goals\CreateGoalAction;
 use App\Enums\GoalTypeEnum;
+use App\Models\Goal;
 use App\Models\Topic;
 use DateTimeImmutable;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Throwable;
 
@@ -77,6 +79,26 @@ final class Create extends Component
                 'after:started_at',
             ],
         ]);
+
+        $overlappingGoal = Goal::query()
+            ->where('user_id', Auth::id())
+            ->where('topic_id', $this->topic_id)
+            ->where(function ($query) {
+                $query->whereBetween('started_at', [$this->started_at, $this->ended_at])
+                    ->orWhereBetween('ended_at', [$this->started_at, $this->ended_at])
+                    ->orWhere(function ($query) {
+                        $query->where('started_at', '<=', $this->started_at)
+                            ->where('ended_at', '>=', $this->ended_at);
+                    });
+            })
+            ->exists();
+
+        if ($overlappingGoal) {
+            throw ValidationException::withMessages([
+                'started_at' => 'A goal already exists for this topic and user within the specified date range.',
+                'ended_at' => 'A goal already exists for this topic and user within the specified date range.',
+            ]);
+        }
 
         $action = new CreateGoalAction();
         $action->handle(
