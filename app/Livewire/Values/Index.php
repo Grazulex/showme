@@ -37,8 +37,6 @@ final class Index extends Component
         $value = Auth::user()->values()->findOrFail($valueId);
         $value->delete();
 
-        // TODO : update diff & color next entry
-
         Flux::toast(
             text: 'Value deleted successfully.',
             heading: 'Values',

@@ -82,8 +82,17 @@ final class Topic extends Model
     {
         return Value::query()
             ->where('topic_id', $this->id)
-            ->where('created_at', '<=', $date)
+            ->where('created_at', '<', $date)
             ->orderByDesc('created_at')
+            ->first();
+    }
+
+    public function getFirstValueAfterDate(DateTimeImmutable|Carbon $date): ?Value
+    {
+        return Value::query()
+            ->where('topic_id', $this->id)
+            ->where('created_at', '>', $date)
+            ->orderBy('created_at')
             ->first();
     }
 

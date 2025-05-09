@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Value;
+use App\Observers\ValueObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
@@ -32,18 +34,15 @@ final class AppServiceProvider extends ServiceProvider
         $this->configureUrl();
         $this->configureVite();
         $this->configureDate();
-    }
 
-    private function configureDate(): void
-    {
-        Date::use(CarbonImmutable::class);
+        Value::observe(ValueObserver::class);
     }
 
     private function configureCommands(): void
     {
-        // DB::prohibitDestructiveCommands(
-        //    $this->app->isProduction(),
-        // );
+        DB::prohibitDestructiveCommands(
+            $this->app->isProduction(),
+        );
     }
 
     /**
@@ -76,5 +75,10 @@ final class AppServiceProvider extends ServiceProvider
     private function configureVite(): void
     {
         Vite::usePrefetchStrategy('aggressive');
+    }
+
+    private function configureDate(): void
+    {
+        Date::use(CarbonImmutable::class);
     }
 }
