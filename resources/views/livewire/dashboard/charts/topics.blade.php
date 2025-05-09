@@ -1,7 +1,10 @@
 <div>
     @if($topic)
-        <div class="space-y-4 m-2">
+        <div class="space-y-2 m-2">
             <div class="text-lg font-semibold">{{ $topic->name }}</div>
+            <div class="text-sm text-gray-600">
+                Goal: {{$goal->target}}{{ $topic->unit->value }} in {{ number_format(now()->diffInDays(\Carbon\Carbon::parse($goal->ended_at), false),0) }} days
+            </div>
 
             <flux:chart wire:model="chartData" class="aspect-3/1">
                 <flux:chart.svg>
@@ -55,7 +58,7 @@
                 <div>
                     Delta:
                     <span class="font-bold">
-                        {{ $gap > 0 ? '+' : '' }}{{ number_format($gap, 1) }} {{ $topic->unit->value }}/{{$goal->target}}{{ $topic->unit->value }}
+                        {{ $gap > 0 ? '+' : '' }}{{ number_format($gap, 1) }} {{ $topic->unit->value }}
                     </span>
                 </div>
                 <div>
