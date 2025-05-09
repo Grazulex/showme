@@ -65,7 +65,7 @@ final class Topic extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function goals(): HasMany
@@ -87,7 +87,7 @@ final class Topic extends Model
             ->first();
     }
 
-    public function getFirstActifGoal(): ?Goal
+    public function getFirstActiveGoal(): ?Goal
     {
         return Goal::query()
             ->where('topic_id', $this->id)

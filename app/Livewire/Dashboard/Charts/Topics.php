@@ -13,6 +13,19 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 
+/**
+ * @property Topic|null $topic
+ * @property Goal|null $goal
+ * @property Collection<int, Value> $values
+ * @property array<int, array<string, string|float>> $chartData
+ * @property float|null $trend
+ * @property float|null $score
+ * @property string|null $trendState
+ * @property float|null $gap
+ * @property float|null $projection
+ * @property bool|null $willReachTarget
+ * @property Carbon|null $estimatedTargetDate
+ */
 final class Topics extends Component
 {
     public ?Topic $topic;
@@ -48,7 +61,7 @@ final class Topics extends Component
 
     public function computeProgress(): void
     {
-        $this->goal = $this->topic->getFirstActifGoal();
+        $this->goal = $this->topic->getFirstActiveGoal();
         $goal = $this->goal;
         /** @var Collection<Value> $values */
         $values = $this->topic->values()
@@ -69,7 +82,6 @@ final class Topics extends Component
             return;
         }
 
-        // Préparation des données pour le graphique
         $this->chartData = $values->map(function (Value $v) use ($goal): array {
             return [
                 'date' => $v->created_at->format('Y-m-d'),
@@ -78,7 +90,6 @@ final class Topics extends Component
             ];
         })->toArray();
 
-        // Calcul de la tendance moyenne
         $this->trend = $values
             ->map(fn (Value $item, int $i): ?float => $i > 0 ? $item->value - $values[$i - 1]->value : null)
             ->filter() // Collection<int|float>
@@ -87,9 +98,8 @@ final class Topics extends Component
         $latest = $values->last()->value;
         $target = $goal->target;
 
-        $this->gap = $latest - $target; // peut être positif, négatif ou 0
+        $this->gap = $latest - $target;
 
-        // Calcul du score d’atteinte
         if ($goal->type === GoalTypeEnum::increase) {
             $this->score = $latest >= $target ? 100 : round(($latest / $target) * 100, 1);
             $this->trendState = $this->trend > 0 ? 'good' : 'bad';
@@ -121,15 +131,12 @@ final class Topics extends Component
             $this->willReachTarget = null;
         }
 
-        // Calcul de la date d'atteinte de l'objectif
         if ($this->trend !== null) {
             $firstValue = $values->first()->value;
             $remaining = $goal->target - $firstValue;
 
-            // nombre de jours nécessaires à ce rythme
             $daysNeeded = $remaining / $this->trend;
 
-            // éviter les projections aberrantes
             if ($daysNeeded > 0 && is_finite($daysNeeded)) {
                 $this->estimatedTargetDate = Carbon::parse($goal->started_at)->copy()->addDays((int) round($daysNeeded));
             } else {

@@ -23,7 +23,7 @@ final class UpdateValueAction
         $diff = $last_value ? $attributes['value'] - $last_value->value : 0;
         $color = 'blue';
 
-        $last_goal = $topic->getFirstActifGoal();
+        $last_goal = $topic->getFirstActiveGoal();
         if ($last_goal) {
             if ($last_goal->type === GoalTypeEnum::decrease) {
                 if ($diff < 0) {
