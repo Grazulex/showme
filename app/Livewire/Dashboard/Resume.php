@@ -25,6 +25,7 @@ final class Resume extends Component
                 'id' => $topic->id,
                 'name' => $topic->name,
                 'unit' => $topic->unit->value,
+                'goal_type' => $topic->getFirstActifGoal()->type->label(),
                 'goal_target' => $topic->getFirstActifGoal()->target,
                 'lower_value_in_goal_range' => Value::query()
                     ->where('topic_id', $topic->id)
