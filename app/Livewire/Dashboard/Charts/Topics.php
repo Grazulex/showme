@@ -46,6 +46,8 @@ final class Topics extends Component
         /** @var Collection<Value> $values */
         $values = $this->topic->values()
             ->where('user_id', auth()->id())
+            ->where('created_at', '>=', $goal->started_at)
+            ->where('created_at', '<=', $goal->ended_at)
             ->orderBy('created_at')
             ->get();
 
