@@ -28,7 +28,7 @@
 
                     <flux:chart.line
                         field="target"
-                        class="text-gray-400"
+                        class="text-yellow-100"
                     />
 
                     <flux:chart.axis axis="x" field="date" scale="time">
