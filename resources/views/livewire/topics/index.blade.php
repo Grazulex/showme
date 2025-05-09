@@ -47,6 +47,9 @@
                     </div>
                 </div>
             @endforeach
+            <div class="mt-4">
+                {{ $topics->links() }}
+            </div>
         </div>
 
 

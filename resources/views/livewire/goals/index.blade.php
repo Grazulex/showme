@@ -53,6 +53,9 @@
                     </div>
                 </div>
             @endforeach
+            <div class="mt-4">
+                {{ $goals->links() }}
+            </div>
         </div>
 
         <div class="hidden sm:block">

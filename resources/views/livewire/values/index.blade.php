@@ -68,6 +68,9 @@
                     </div>
                 </div>
             @endforeach
+            <div class="mt-4">
+                {{ $values->links() }}
+            </div>
         </div>
         <div class="hidden sm:block">
             <flux:table :paginate="$values" class="w-full">
