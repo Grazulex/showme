@@ -17,7 +17,7 @@ final class UpdateValueAction
     public function handle(Value $value, array $attributes): Value
     {
 
-        $topic = Topic::findOrFail($attributes['topic_id']);
+        Topic::findOrFail($attributes['topic_id']);
 
         return DB::transaction(function () use ($value, $attributes): Value {
             $value->update([

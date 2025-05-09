@@ -37,7 +37,7 @@ test('update Value via action on decrease goal', function (): void {
 
     expect($value->value)->toBe(number_format($attributes['value'], 2))
         ->and($value->topic_id)->toBe($topic->id)
-        ->and($value->color)->toBe('red')
+        ->and($value->color)->toBe('blue')
         ->and($value->user_id)->toBe($user->id);
 
     $attributes = [
@@ -51,7 +51,7 @@ test('update Value via action on decrease goal', function (): void {
 
     expect($value->value)->toBe(number_format($attributes['value'], 2))
         ->and($value->topic_id)->toBe($topic->id)
-        ->and($value->color)->toBe('green')
+        ->and($value->color)->toBe('blue')
         ->and($value->user_id)->toBe($user->id);
 
     $attributes = [
@@ -97,7 +97,7 @@ test('update Value via action on increase goal', function (): void {
 
     expect($value->value)->toBe(number_format($attributes['value'], 2))
         ->and($value->topic_id)->toBe($topic->id)
-        ->and($value->color)->toBe('green')
+        ->and($value->color)->toBe('blue')
         ->and($value->user_id)->toBe($user->id);
 
     $attributes = [
@@ -111,7 +111,7 @@ test('update Value via action on increase goal', function (): void {
 
     expect($value->value)->toBe(number_format($attributes['value'], 2))
         ->and($value->topic_id)->toBe($topic->id)
-        ->and($value->color)->toBe('red')
+        ->and($value->color)->toBe('blue')
         ->and($value->user_id)->toBe($user->id);
 
     $attributes = [
@@ -157,7 +157,7 @@ test('update Value via action on maintain goal', function (): void {
 
     expect($value->value)->toBe(number_format($attributes['value'], 2))
         ->and($value->topic_id)->toBe($topic->id)
-        ->and($value->color)->toBe('red')
+        ->and($value->color)->toBe('green')
         ->and($value->user_id)->toBe($user->id);
 
     $attributes = [
@@ -171,7 +171,7 @@ test('update Value via action on maintain goal', function (): void {
 
     expect($value->value)->toBe(number_format($attributes['value'], 2))
         ->and($value->topic_id)->toBe($topic->id)
-        ->and($value->color)->toBe('red')
+        ->and($value->color)->toBe('green')
         ->and($value->user_id)->toBe($user->id);
 
     $attributes = [
@@ -185,6 +185,6 @@ test('update Value via action on maintain goal', function (): void {
 
     expect($value->value)->toBe(number_format($attributes['value'], 2))
         ->and($value->topic_id)->toBe($topic->id)
-        ->and($value->color)->toBe('red')
+        ->and($value->color)->toBe('green')
         ->and($value->user_id)->toBe($user->id);
 });

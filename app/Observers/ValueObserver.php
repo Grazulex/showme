@@ -6,6 +6,7 @@ namespace App\Observers;
 
 use App\Models\Value;
 use App\Services\Color;
+use Carbon\Carbon;
 
 final class ValueObserver
 {
@@ -13,18 +14,18 @@ final class ValueObserver
     {
         $topic = $value->topic;
         $goal = $topic->getFirstActiveGoal();
-        $last_value = $topic->getLastValueBeforeDate($value->created_at);
+        $last_value = $topic->getLastValueBeforeDate(Carbon::parse($value->created_at));
         $diff = $last_value ? $value->value - $last_value->value : 0;
         $colorServices = new Color();
         $color = $goal ? $colorServices->getColor($goal, $diff) : 'blue';
         $value->color = $color;
         $value->diff_with_last = $diff;
 
-        $next_value = $topic->getFirstValueAfterDate($value->created_at);
+        $next_value = $topic->getFirstValueAfterDate(Carbon::parse($value->created_at));
         if ($next_value) {
             $diff = $next_value->value - $value->value;
             $color = $goal ? $colorServices->getColor($goal, $diff) : 'blue';
-            $next_value::withoutEvents(function () use ($next_value, $diff, $color) {
+            $next_value::withoutEvents(function () use ($next_value, $diff, $color): void {
                 $next_value->update([
                     'diff_with_last' => $diff,
                     'color' => $color,
@@ -39,7 +40,7 @@ final class ValueObserver
         if ($value->isDirty('value')) {
             $topic = $value->topic;
             $goal = $topic->getFirstActiveGoal();
-            $last_value = $topic->getLastValueBeforeDate($value->created_at);
+            $last_value = $topic->getLastValueBeforeDate(Carbon::parse($value->created_at));
             if ($last_value) {
                 $diff = $value->value - $last_value->value;
                 $colorServices = new Color();
@@ -47,12 +48,12 @@ final class ValueObserver
                 $value->color = $color;
                 $value->diff_with_last = $diff;
             }
-            $next_value = $topic->getFirstValueAfterDate($value->created_at);
+            $next_value = $topic->getFirstValueAfterDate(Carbon::parse($value->created_at));
             if ($next_value) {
                 $diff = $next_value->value - $value->value;
                 $colorServices = new Color();
                 $color = $goal ? $colorServices->getColor($goal, $diff) : 'blue';
-                $next_value::withoutEvents(function () use ($next_value, $diff, $color) {
+                $next_value::withoutEvents(function () use ($next_value, $diff, $color): void {
                     $next_value->update([
                         'diff_with_last' => $diff,
                         'color' => $color,
@@ -68,13 +69,13 @@ final class ValueObserver
     {
         $topic = $value->topic;
         $goal = $topic->getFirstActiveGoal();
-        $last_value = $topic->getLastValueBeforeDate($value->created_at);
-        $next_value = $topic->getFirstValueAfterDate($value->created_at);
+        $last_value = $topic->getLastValueBeforeDate(Carbon::parse($value->created_at));
+        $next_value = $topic->getFirstValueAfterDate(Carbon::parse($value->created_at));
         if ($next_value) {
             $diff = $next_value->value - $last_value->value;
             $colorServices = new Color();
             $color = $goal ? $colorServices->getColor($goal, $diff) : 'blue';
-            $next_value::withoutEvents(function () use ($next_value, $diff, $color) {
+            $next_value::withoutEvents(function () use ($next_value, $diff, $color): void {
                 $next_value->update([
                     'diff_with_last' => $diff,
                     'color' => $color,

@@ -17,5 +17,6 @@ test('to array', function (): void {
             'updated_at',
             'created_at',
             'id',
+            'topic',
         ]);
 });
