@@ -11,6 +11,7 @@ use App\Models\Topic;
 use DateTimeImmutable;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -83,10 +84,10 @@ final class Create extends Component
         $overlappingGoal = Goal::query()
             ->where('user_id', Auth::id())
             ->where('topic_id', $this->topic_id)
-            ->where(function ($query) {
+            ->where(function (Builder $query): void {
                 $query->whereBetween('started_at', [$this->started_at, $this->ended_at])
                     ->orWhereBetween('ended_at', [$this->started_at, $this->ended_at])
-                    ->orWhere(function ($query) {
+                    ->orWhere(function (Builder $query): void {
                         $query->where('started_at', '<=', $this->started_at)
                             ->where('ended_at', '>=', $this->ended_at);
                     });
