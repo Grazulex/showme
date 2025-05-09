@@ -13,13 +13,22 @@
                         default => 'text-blue-500 dark:text-blue-400',
                     } }}"
                     />
+                    <flux:chart.point
+                        field="value"
+                        class="{{ match($trendState) {
+                        'good' => 'text-green-500 dark:text-green-400',
+                        'bad' => 'text-red-500 dark:text-red-400',
+                        default => 'text-blue-500 dark:text-blue-400',
+                    } }}"
+                        size="4"
+                    />
 
                     <flux:chart.line
                         field="target"
                         class="text-gray-400"
                     />
 
-                    <flux:chart.axis axis="x" field="date">
+                    <flux:chart.axis axis="x" field="date" scale="time">
                         <flux:chart.axis.line />
                         <flux:chart.axis.tick />
                     </flux:chart.axis>
@@ -34,8 +43,8 @@
 
                 <flux:chart.tooltip>
                     <flux:chart.tooltip.heading field="date" :format="['year' => 'numeric', 'month' => 'numeric', 'day' => 'numeric']" />
-                    <flux:chart.tooltip.value field="value" label="Valeur ({{ $topic->unit->value }})" />
-                    <flux:chart.tooltip.value field="target" label="Objectif ({{ $topic->unit->value }})" />
+                    <flux:chart.tooltip.value field="value" label="Value ({{ $topic->unit->value }})" />
+                    <flux:chart.tooltip.value field="target" label="Target ({{ $topic->unit->value }})" />
                 </flux:chart.tooltip>
             </flux:chart>
 
