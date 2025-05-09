@@ -1,10 +1,10 @@
 <div>
     @if($topic)
         <div class="space-y-2 m-2">
-            <div class="text-lg font-semibold">{{ $topic->name }}</div>
-            <div class="text-sm text-gray-600">
-                Goal: {{$goal->target}}{{ $topic->unit->value }} in {{ number_format(now()->diffInDays(\Carbon\Carbon::parse($goal->ended_at), false),0) }} days
-            </div>
+            <flux:heading>{{ $topic->name }}</flux:heading>
+            <flux:text class="text-sm text-gray-500">
+                {{ $topic->description }}. Goal: {{$goal->target}}{{ $topic->unit->value }} in {{ number_format(now()->diffInDays(\Carbon\Carbon::parse($goal->ended_at), false),0) }} days
+            </flux:text>
 
             <flux:chart wire:model="chartData" class="aspect-3/1">
                 <flux:chart.svg>
@@ -51,7 +51,7 @@
                 </flux:chart.tooltip>
             </flux:chart>
 
-            <div class="text-sm text-gray-600 flex justify-between">
+            <div class="text-sm text-gray-500 flex justify-between">
                 <div>
                     Score: <span class="font-bold">{{ $score }}%</span>
                 </div>
