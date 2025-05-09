@@ -6,9 +6,7 @@
                     <livewire:dashboard.charts.topics :topic_id="$topic->id"/>
                 </div>
             @endforeach
-            <div class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 aspect-[4/3] sm:aspect-video">
-                <livewire:dashboard.resume />
-            </div>
         </div>
+        <livewire:dashboard.resume />
     </div>
 </x-layouts.app>
