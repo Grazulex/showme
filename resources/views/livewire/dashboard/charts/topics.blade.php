@@ -1,10 +1,7 @@
 <div>
     @if($topic)
         <div class="space-y-2 m-2">
-            <flux:heading>{{ $topic->name }}</flux:heading>
-            <flux:text class="text-sm text-gray-500">
-                {{ $topic->description }}. Goal: {{$goal->target}}{{ $topic->unit->value }} in {{ number_format(now()->diffInDays(\Carbon\Carbon::parse($goal->ended_at), false),0) }} days
-            </flux:text>
+            <flux:heading>{{ $topic->name }} - Goal: {{$goal->target}}{{ $topic->unit->value }} in {{ number_format(now()->diffInDays(\Carbon\Carbon::parse($goal->ended_at), false),0) }} days</flux:heading>
 
             <flux:chart wire:model="chartData" class="aspect-3/1">
                 <flux:chart.svg>
@@ -82,6 +79,18 @@
                     </span>
                 </div>
             </div>
+            @if($projection !== null && $willReachTarget !== null)
+                <div class="mt-2 text-sm text-gray-500">
+                    <p>
+                        Final estimation: <span class="font-bold">{{ number_format($projection, 1) }} {{ $topic->unit->value }}</span><br>
+                        @if($willReachTarget)
+                            🎯 You are on track to achieve your goal on time.
+                        @else
+                            ⚠️ At this pace, you might not reach your goal before {{ \Carbon\Carbon::parse($goal->ended_at)->format('d/m/Y') }}.
+                        @endif
+                    </p>
+                </div>
+            @endif
         </div>
    @endif
 </div>

@@ -8,6 +8,7 @@ use App\Enums\GoalTypeEnum;
 use App\Models\Goal;
 use App\Models\Topic;
 use App\Models\Value;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -29,6 +30,10 @@ final class Topics extends Component
     public ?string $trendState = null;
 
     public ?float $gap = null;
+
+    public ?float $projection = null;
+    public ?bool $willReachTarget = null;
+
 
     public function mount(int $topic_id): void
     {
@@ -93,6 +98,25 @@ final class Topics extends Component
             $diff = abs($latest - $target);
             $this->score = max(0, 100 - $diff);
             $this->trendState = $diff < 1 ? 'good' : ($diff < 5 ? 'neutral' : 'bad');
+        }
+
+        $daysTotal = Carbon::parse($goal->started_at)->diffInDays($goal->ended_at);
+        $daysSoFar = Carbon::parse($goal->started_at)->diffInDays(now());
+
+        if ($daysSoFar > 0 && $this->trend !== null) {
+            $estimatedValue = $values->first()->value + ($this->trend * $daysTotal);
+            $this->projection = round($estimatedValue, 2);
+
+            if ($goal->type === GoalTypeEnum::increase) {
+                $this->willReachTarget = $this->projection >= $target;
+            } elseif ($goal->type === GoalTypeEnum::decrease) {
+                $this->willReachTarget = $this->projection <= $target;
+            } else {
+                $this->willReachTarget = abs($this->projection - $target) < 1.0;
+            }
+        } else {
+            $this->projection = null;
+            $this->willReachTarget = null;
         }
     }
 
