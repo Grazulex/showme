@@ -86,7 +86,7 @@
                         @if($willReachTarget)
                             🎯 You are on track to achieve your goal on time.
                         @else
-                            ⚠️ At this pace, you might not reach your goal before {{ \Carbon\Carbon::parse($goal->ended_at)->format('d/m/Y') }}.
+                            ⚠️ At this pace, you might not reach your goal before {{ $estimatedTargetDate?->format('d/m/Y') ?? '???' }}.
                         @endif
                     </p>
                 </div>

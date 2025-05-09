@@ -32,8 +32,10 @@ final class Topics extends Component
     public ?float $gap = null;
 
     public ?float $projection = null;
+
     public ?bool $willReachTarget = null;
 
+    public ?Carbon $estimatedTargetDate = null;
 
     public function mount(int $topic_id): void
     {
@@ -117,6 +119,24 @@ final class Topics extends Component
         } else {
             $this->projection = null;
             $this->willReachTarget = null;
+        }
+
+        // Calcul de la date d'atteinte de l'objectif
+        if ($this->trend !== null) {
+            $firstValue = $values->first()->value;
+            $remaining = $goal->target - $firstValue;
+
+            // nombre de jours nécessaires à ce rythme
+            $daysNeeded = $remaining / $this->trend;
+
+            // éviter les projections aberrantes
+            if ($daysNeeded > 0 && is_finite($daysNeeded)) {
+                $this->estimatedTargetDate = Carbon::parse($goal->started_at)->copy()->addDays((int) round($daysNeeded));
+            } else {
+                $this->estimatedTargetDate = null;
+            }
+        } else {
+            $this->estimatedTargetDate = null;
         }
     }
 
