@@ -14,11 +14,10 @@
         <flux:table :paginate="$topics" class="w-full">
             <flux:table.columns>
                 <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:table.column>
-                <flux:table.column>Desciption</flux:table.column>
+                <flux:table.column>Description</flux:table.column>
                 <flux:table.column sortable :sorted="$sortBy === 'unit'" :direction="$sortDirection" wire:click="sort('unit')">Unit</flux:table.column>
                 <flux:table.column>Goals</flux:table.column>
-                <flux:table.column>Avg</flux:table.column>
-                <flux:table.column>Chart</flux:table.column>
+                <flux:table.column>Values</flux:table.column>
                 <flux:table.column>Actions</flux:table.column>
             </flux:table.columns>
             <flux:table.rows>
@@ -33,10 +32,7 @@
                             <flux:badge icon="medal" size="sm" color="success" inset="top bottom">{{ $topic->goals->count() }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
-                            <livewire:topics.avg-values :topic="$topic"  />
-                        </flux:table.cell>
-                        <flux:table.cell>
-                            <livewire:topics.sparkline-values :topic="$topic"  />
+                            <flux:badge icon="chart-bar" size="sm" color="info" inset="top bottom">{{ $topic->values->count() }}</flux:badge>
                         </flux:table.cell>
                         <flux:table.cell>
                             <flux:button.group>
