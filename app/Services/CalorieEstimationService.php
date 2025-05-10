@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 final class CalorieEstimationService
 {
-    public function estimateFromImage(string $imageUrl): ?string
+    public function estimateFromImage(string $imageUrl): ?float
     {
         $apiKey = config('services.openai.key');
 
@@ -34,6 +34,6 @@ final class CalorieEstimationService
             'max_tokens' => 300,
         ]);
 
-        return $response->json('choices.0.message.content');
+        return (float) $response->json('choices.0.message.content');
     }
 }

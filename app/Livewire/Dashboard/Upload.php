@@ -17,7 +17,7 @@ final class Upload extends Component
 
     public ?TemporaryUploadedFile $picture = null;
 
-    public string $calorieEstimate;
+    public float $calorieEstimate;
 
     public function render(): View
     {
@@ -36,20 +36,18 @@ final class Upload extends Component
         $this->calorieEstimate = app(CalorieEstimationService::class)
             ->estimateFromImage($url);
 
-        if ($this->calorieEstimate === '' || $this->calorieEstimate === '0') {
+        if ($this->calorieEstimate > 0) {
             Flux::toast(
-                text: 'Failed to estimate calories.',
-                heading: 'Error',
+                text: $this->calorieEstimate,
+                heading: 'Calorie Estimate',
+                variant: 'success',
+            );
+        } else {
+            Flux::toast(
+                text: 'Estimation calorie failed',
+                heading: 'Calorie Estimation Failed',
                 variant: 'danger',
             );
-
-            return;
         }
-
-        Flux::toast(
-            text: $this->calorieEstimate,
-            heading: 'Calorie Estimate',
-            variant: 'success',
-        );
     }
 }
