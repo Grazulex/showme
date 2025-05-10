@@ -9,6 +9,7 @@ use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -35,9 +36,14 @@ final class Upload extends Component
             'picture' => 'image|max:4096',
         ]);
 
-        $path = $this->picture->store('uploads', 'public');
+        $path = $this->picture->store('uploads', [
+            'disk' => 's3',
+            'visibility' => 'public',
+        ]);
+
+        $url = Storage::disk('s3')->url($path);
+
         Log::debug('Path:'.$path);
-        $url = asset('storage/'.$path);
         Log::debug('url:'.$url);
 
         $this->calorieEstimate = app(CalorieEstimationService::class)
