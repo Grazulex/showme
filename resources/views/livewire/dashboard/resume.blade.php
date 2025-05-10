@@ -22,7 +22,7 @@
                         };
 
                         $motivationBadge = match (true) {
-                            $resume['record_frequency'] >= 1     => '🟢',
+                            $resume['record_frequency'] >= 0.75     => '🟢',
                             $resume['record_frequency'] >= 0.25  => '🟡',
                             default                              => '🔴',
                         };
@@ -75,7 +75,7 @@
                 };
 
                 $motivationBadge = match (true) {
-                    $resume['record_frequency'] >= 1     => '🟢',
+                    $resume['record_frequency'] >= 0.75     => '🟢',
                     $resume['record_frequency'] >= 0.25  => '🟡',
                     default                              => '🔴',
                 };
