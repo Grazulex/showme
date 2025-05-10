@@ -12,6 +12,8 @@ enum UnitEnum: string
     case kilometerperhour = 'km/h';
     case calories = 'cal';
 
+    case percentage = '%';
+
     public function label(): string
     {
         return match ($this) {
@@ -20,6 +22,7 @@ enum UnitEnum: string
             self::kilometer => 'Kilometer',
             self::kilometerperhour => 'Kilometer per hour',
             self::calories => 'Calorie',
+            self::percentage => 'Percentage',
         };
     }
 
@@ -31,6 +34,7 @@ enum UnitEnum: string
             self::kilometer => 'purple',
             self::kilometerperhour => 'red',
             self::calories => 'yellow',
+            self::percentage => 'orange',
         };
     }
 
@@ -42,6 +46,7 @@ enum UnitEnum: string
             self::kilometer => 'footprints',
             self::kilometerperhour => 'gauge',
             self::calories => 'flame',
+            self::percentage => 'percent',
         };
     }
 }
