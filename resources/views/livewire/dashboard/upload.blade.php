@@ -1,18 +1,33 @@
 <div>
-    <form wire:submit.prevent>
+    <div class="flex items-center gap-4">
+        <!-- Input caché AVANT le label pour être bien détecté -->
         <input
+            id="upload-picture"
             type="file"
             wire:model="picture"
             accept="image/*"
             capture="environment"
-            class="mb-4"
+            class="hidden"
         >
 
-        @error('picture') <span class="text-red-500">{{ $message }}</span> @enderror
+        <!-- Le label entoure directement le bouton -->
+        <label for="upload-picture" class="cursor-pointer">
+            <flux:button as="div" color="blue" icon="camera">
+                Take a photo
+            </flux:button>
+        </label>
 
+        <!-- Preview -->
         @if ($picture)
-            <p class="text-green-600">Uploading preview:</p>
-            <img src="{{ $picture->temporaryUrl() }}" class="w-48 rounded" alt="Preview">
+            <img
+                src="{{ $picture->temporaryUrl() }}"
+                alt="Preview"
+                class="w-16 h-16 object-cover rounded border border-gray-300 shadow"
+            >
         @endif
-    </form>
+    </div>
+
+    @error('picture')
+    <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+    @enderror
 </div>

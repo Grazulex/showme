@@ -1,9 +1,15 @@
 <x-layouts.app :title="__('Dashboard')">
-    <flux:heading size="lg">
-        {{ __('Dashboard') }}
-    </flux:heading>
-    <flux:text class="mt-2 mb-2">Track your progress and stay on top of your goals.</flux:text>
-    <livewire:dashboard.upload />
+    <div class="flex items-center justify-between">
+        <div>
+            <flux:heading size="lg">
+                {{ __('Dashboard') }}
+            </flux:heading>
+            <flux:text class="mt-2">Track your progress and stay on top of your goals.</flux:text>
+        </div>
+        <div class="ml-4">
+            <livewire:dashboard.upload />
+        </div>
+    </div>
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="grid auto-rows-min gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
         @foreach ($topics as $topic)
