@@ -18,7 +18,7 @@ final class CalorieEstimationService
         $apiKey = config('services.openai.key');
 
         $response = Http::withToken($apiKey)->post('https://api.openai.com/v1/chat/completions', [
-            'model' => 'gpt-4o',
+            'model' => 'gpt-4o-mini',
             'messages' => [
                 [
                     'role' => 'user',
