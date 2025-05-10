@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 final class CalorieEstimationService
 {
+    /**
+     * @throws ConnectionException
+     */
     public function estimateFromImage(string $imageUrl): ?float
     {
         $apiKey = config('services.openai.key');
@@ -33,6 +38,9 @@ final class CalorieEstimationService
             ],
             'max_tokens' => 300,
         ]);
+
+        Log::debug($response->json());
+        Log::debug($response->json('choices.0.message.content'));
 
         return (float) $response->json('choices.0.message.content');
     }
