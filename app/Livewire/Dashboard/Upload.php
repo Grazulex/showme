@@ -17,6 +17,7 @@ final class Upload extends Component
     use WithFileUploads;
 
     public ?TemporaryUploadedFile $picture = null;
+
     public array $calorieData = [];
 
     public function render(): View
