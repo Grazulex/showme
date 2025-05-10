@@ -7,6 +7,7 @@
                 <flux:table.column class="text-xs">High / Low</flux:table.column>
                 <flux:table.column class="text-xs">Last</flux:table.column>
                 <flux:table.column class="text-xs">Avg</flux:table.column>
+                <flux:table.column class="text-xs">Records</flux:table.column>
                 <flux:table.column class="text-xs">Progress</flux:table.column>
                 <flux:table.column class="text-xs">Status</flux:table.column>
                 <flux:table.column class="text-xs">Left</flux:table.column>
@@ -19,6 +20,12 @@
                             'warning' => 'bg-yellow-500',
                             default => 'bg-red-500',
                         };
+
+                        $motivationBadge = match (true) {
+                            $resume['record_frequency'] >= 1     => '🟢',
+                            $resume['record_frequency'] >= 0.25  => '🟡',
+                            default                              => '🔴',
+                        };
                     @endphp
                     <flux:table.row :key="$resume['id']">
                         <flux:table.cell variant="strong" class="text-xs">{{ $resume['name'] }}</flux:table.cell>
@@ -28,6 +35,9 @@
                         </flux:table.cell>
                         <flux:table.cell class="text-xs">{{ number_format($resume['latest_value_in_goal_range'], 1) }} {{ $resume['unit'] }}</flux:table.cell>
                         <flux:table.cell class="text-xs">{{ number_format($resume['avg_value_in_goal_range'], 1) }} {{ $resume['unit'] }}</flux:table.cell>
+                        <flux:table.cell class="text-xs">
+                            {{ $resume['values_count'] }} {{ $motivationBadge }}
+                        </flux:table.cell>
                         <flux:table.cell class="text-xs w-32">
                             <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                                 <div class="{{ $barColor }} h-2.5 rounded-full transition-all" style="width: {{ $resume['progress_percent'] }}%;" title="{{ $resume['progress_percent'] }}%"></div>
@@ -63,6 +73,12 @@
                     'warning' => 'bg-yellow-500',
                     default => 'bg-red-500',
                 };
+
+                $motivationBadge = match (true) {
+                    $resume['record_frequency'] >= 1     => '🟢',
+                    $resume['record_frequency'] >= 0.25  => '🟡',
+                    default                              => '🔴',
+                };
             @endphp
             <div class="p-3 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-gray-800 shadow-sm space-y-1">
                 <div class="text-base font-semibold text-gray-800 dark:text-white">
@@ -74,7 +90,7 @@
                     📈 Avg: {{ number_format($resume['avg_value_in_goal_range'], 1) }} {{ $resume['unit'] }}<br>
                     📊 High / Low: {{ number_format($resume['higher_value_in_goal_range'], 1) }} / {{ number_format($resume['lower_value_in_goal_range'], 1) }}<br>
                     📅 {{ $resume['days_left'] > 0 ? $resume['days_left'].'d left' : 'Ended' }}<br>
-                    🔁 Records: {{ $resume['values_count'] }}<br>
+                    🔁 Records: {{ $resume['values_count'] }} {{ $motivationBadge }}<br>
                     {{ $resume['status'] === 'on_track' ? '🟢 On track' : ($resume['status'] === 'warning' ? '🟡 Mid' : '🔴 Off track') }}
                     <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-1">
                         <div class="{{ $barColor }} h-2.5 rounded-full transition-all" style="width: {{ $resume['progress_percent'] }}%;" title="{{ $resume['progress_percent'] }}%"></div>

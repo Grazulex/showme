@@ -28,20 +28,15 @@ final class Resume extends Component
                 continue;
             }
 
-            $values = Value::query()
+            $valueQuery = Value::query()
                 ->where('topic_id', $topic->id)
                 ->whereBetween('created_at', [$goal->started_at, $goal->ended_at]);
 
-            $avg = $values->avg('value');
-
-            $lower = $values->orderBy('value')
-                ->first()?->value;
-
-            $higher = $values->orderBy('value', 'desc')
-                ->first()?->value;
-
-            $latest = $values->orderBy('created_at', 'desc')
-                ->first()?->value;
+            $lower = (clone $valueQuery)->orderBy('value')->first()?->value;
+            $higher = (clone $valueQuery)->orderByDesc('value')->first()?->value;
+            $avg = (clone $valueQuery)->avg('value');
+            $latest = (clone $valueQuery)->orderByDesc('created_at')->first()?->value;
+            $count = (clone $valueQuery)->count();
 
             $progress = match ($goal->type) {
                 GoalTypeEnum::increase => $latest > 0
@@ -79,7 +74,10 @@ final class Resume extends Component
                 'status' => $status,
                 'days_left' => $daysLeft,
                 'goal_end' => Carbon::parse($goal->ended_at)->toDateString(),
-                'values_count' => $values->count(),
+                'values_count' => $count,
+                'days_total' => Carbon::parse($goal->started_at)->diffInDays(Carbon::parse($goal->ended_at)) + 1,
+                'record_frequency' => $count / max(Carbon::parse($goal->started_at)->diffInDays(Carbon::parse($goal->ended_at)) + 1, 1),
+
             ];
         }
     }
