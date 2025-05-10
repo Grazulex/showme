@@ -37,7 +37,7 @@ final class Upload extends Component
 
         $path = $this->picture->store('uploads', 'public');
         Log::debug('Path:'.$path);
-        $url = asset("storage/{$path}");
+        $url = asset('storage/'.$path);
         Log::debug('url:'.$url);
 
         $this->calorieEstimate = app(CalorieEstimationService::class)
