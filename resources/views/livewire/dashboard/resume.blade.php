@@ -10,7 +10,7 @@
                 <flux:table.column class="text-xs">Records</flux:table.column>
                 <flux:table.column class="text-xs">Progress</flux:table.column>
                 <flux:table.column class="text-xs">Status</flux:table.column>
-                <flux:table.column class="text-xs">Left</flux:table.column>
+                <flux:table.column class="text-xs">Remaining</flux:table.column>
             </flux:table.columns>
             <flux:table.rows>
                 @foreach ($resumes as $resume)
@@ -21,36 +21,42 @@
                             default => 'bg-red-500',
                         };
 
-                        $motivationBadge = match (true) {
-                            $resume['record_frequency'] >= 0.75     => '🟢',
-                            $resume['record_frequency'] >= 0.25  => '🟡',
-                            default                              => '🔴',
+                        $recordColor = match (true) {
+                            $resume['record_frequency'] >= 0.75 => 'green',
+                            $resume['record_frequency'] >= 0.25 => 'amber',
+                            default => 'red',
+                        };
+
+                        $statusBadge = match ($resume['status']) {
+                            'on_track' => ['color' => 'emerald', 'label' => 'On track'],
+                            'warning' => ['color' => 'yellow', 'label' => 'At risk'],
+                            default => ['color' => 'red', 'label' => 'Off track'],
                         };
                     @endphp
                     <flux:table.row :key="$resume['id']">
                         <flux:table.cell variant="strong" class="text-xs">{{ $resume['name'] }}</flux:table.cell>
                         <flux:table.cell class="text-xs">{{ $resume['goal_type'] }} {{ number_format($resume['goal_target'], 1) }} {{ $resume['unit'] }}</flux:table.cell>
                         <flux:table.cell class="text-xs">
-                            {{ number_format($resume['higher_value_in_goal_range'], 1) }} {{ $resume['unit'] }} / {{ number_format($resume['lower_value_in_goal_range'], 1) }} {{ $resume['unit'] }}
+                            {{ number_format($resume['higher_value_in_goal_range'], 1) }} / {{ number_format($resume['lower_value_in_goal_range'], 1) }} {{ $resume['unit'] }}
                         </flux:table.cell>
                         <flux:table.cell class="text-xs">{{ number_format($resume['latest_value_in_goal_range'], 1) }} {{ $resume['unit'] }}</flux:table.cell>
                         <flux:table.cell class="text-xs">{{ number_format($resume['avg_value_in_goal_range'], 1) }} {{ $resume['unit'] }}</flux:table.cell>
                         <flux:table.cell class="text-xs">
-                            {{ $resume['values_count'] }} {{ $motivationBadge }}
+                            <flux:badge variant="solid" color="{{ $recordColor }}" size="sm">
+                                {{ $resume['values_count'] }}
+                            </flux:badge>
                         </flux:table.cell>
                         <flux:table.cell class="text-xs w-32">
                             <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                <div class="{{ $barColor }} h-2.5 rounded-full transition-all" style="width: {{ $resume['progress_percent'] }}%;" title="{{ $resume['progress_percent'] }}%"></div>
+                                <div class="{{ $barColor }} h-2.5 rounded-full transition-all"
+                                     style="width: {{ $resume['progress_percent'] }}%;"
+                                     title="{{ $resume['progress_percent'] }}%"></div>
                             </div>
                         </flux:table.cell>
                         <flux:table.cell class="text-xs">
-                            @if ($resume['status'] === 'on_track')
-                                <span class="text-green-600">🟢 OK</span>
-                            @elseif ($resume['status'] === 'warning')
-                                <span class="text-yellow-500">🟡 Mid</span>
-                            @else
-                                <span class="text-red-600">🔴 Low</span>
-                            @endif
+                            <flux:badge variant="solid" color="{{ $statusBadge['color'] }}" size="sm">
+                                {{ $statusBadge['label'] }}
+                            </flux:badge>
                         </flux:table.cell>
                         <flux:table.cell class="text-xs">
                             @if ($resume['days_left'] > 0)
@@ -74,10 +80,16 @@
                     default => 'bg-red-500',
                 };
 
-                $motivationBadge = match (true) {
-                    $resume['record_frequency'] >= 0.75     => '🟢',
-                    $resume['record_frequency'] >= 0.25  => '🟡',
-                    default                              => '🔴',
+                $recordColor = match (true) {
+                    $resume['record_frequency'] >= 0.75 => 'green',
+                    $resume['record_frequency'] >= 0.25 => 'amber',
+                    default => 'red',
+                };
+
+                $statusBadge = match ($resume['status']) {
+                    'on_track' => ['color' => 'emerald', 'label' => 'On track'],
+                    'warning' => ['color' => 'yellow', 'label' => 'At risk'],
+                    default => ['color' => 'red', 'label' => 'Off track'],
                 };
             @endphp
             <div class="p-3 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-gray-800 shadow-sm space-y-1">
@@ -89,14 +101,23 @@
                     🕓 Last: {{ number_format($resume['latest_value_in_goal_range'], 1) }} {{ $resume['unit'] }}<br>
                     📈 Avg: {{ number_format($resume['avg_value_in_goal_range'], 1) }} {{ $resume['unit'] }}<br>
                     📊 High / Low: {{ number_format($resume['higher_value_in_goal_range'], 1) }} / {{ number_format($resume['lower_value_in_goal_range'], 1) }}<br>
-                    📅 {{ $resume['days_left'] > 0 ? $resume['days_left'].'d left' : 'Ended' }}<br>
-                    🔁 Records: {{ $resume['values_count'] }} {{ $motivationBadge }}<br>
-                    {{ $resume['status'] === 'on_track' ? '🟢 On track' : ($resume['status'] === 'warning' ? '🟡 Mid' : '🔴 Off track') }}
+                    🔁 Records:
+                    <flux:badge variant="solid" color="{{ $recordColor }}" size="sm">
+                        {{ $resume['values_count'] }}
+                    </flux:badge><br>
+                    <flux:badge variant="solid" color="{{ $statusBadge['color'] }}" size="sm">
+                        {{ $statusBadge['label'] }}
+                    </flux:badge>
+                    <br>
+                    📅 {{ $resume['days_left'] > 0 ? $resume['days_left'].'d left' : 'Ended' }}
                     <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-1">
-                        <div class="{{ $barColor }} h-2.5 rounded-full transition-all" style="width: {{ $resume['progress_percent'] }}%;" title="{{ $resume['progress_percent'] }}%"></div>
+                        <div class="{{ $barColor }} h-2.5 rounded-full transition-all"
+                             style="width: {{ $resume['progress_percent'] }}%;"
+                             title="{{ $resume['progress_percent'] }}%"></div>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
 </div>
+
