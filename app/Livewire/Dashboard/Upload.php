@@ -17,7 +17,7 @@ final class Upload extends Component
 
     public ?TemporaryUploadedFile $picture = null;
 
-    public string $calorieEstimate = '';
+    public string $calorieEstimate;
 
     public function render(): View
     {
