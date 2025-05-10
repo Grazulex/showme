@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
+use JsonException;
 
 final class CalorieEstimationService
 {
-    /**
-     * @throws ConnectionException
-     */
-    public function estimateFromImage(string $imageUrl): ?float
+    public function estimateFromImage(string $imageUrl): ?array
     {
         $apiKey = config('services.openai.key');
 
@@ -25,7 +21,17 @@ final class CalorieEstimationService
                     'content' => [
                         [
                             'type' => 'text',
-                            'text' => 'Estimate how many calories are in this food image. I need only one number as a response. (float with 2 decimal places and a dot as a decimal separator)',
+                            'text' => <<<'PROMPT'
+You're a food image analyzer. Given the image, respond ONLY with a valid JSON object containing:
+
+{
+  "contains_food": boolean,        // true if the image shows food
+  "items": string[],               // list of food items in English
+  "estimated_calories_kcal": int  // approximate total calories
+}
+
+Do not include any commentary or explanation. Only return valid JSON.
+PROMPT,
                         ],
                         [
                             'type' => 'image_url',
@@ -36,12 +42,20 @@ final class CalorieEstimationService
                     ],
                 ],
             ],
-            'max_tokens' => 300,
+            'max_tokens' => 500,
         ]);
 
-        Log::debug($response->json());
-        Log::debug($response->json('choices.0.message.content'));
+        $content = $response->json('choices.0.message.content');
 
-        return (float) $response->json('choices.0.message.content');
+        try {
+            return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            logger()->error('Failed to decode calorie estimation JSON', [
+                'error' => $e->getMessage(),
+                'content' => $content,
+            ]);
+
+            return null;
+        }
     }
 }

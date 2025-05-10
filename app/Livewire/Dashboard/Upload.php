@@ -7,8 +7,6 @@ namespace App\Livewire\Dashboard;
 use App\Services\CalorieEstimationService;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -19,17 +17,13 @@ final class Upload extends Component
     use WithFileUploads;
 
     public ?TemporaryUploadedFile $picture = null;
-
-    public float $calorieEstimate;
+    public array $calorieData = [];
 
     public function render(): View
     {
         return view('livewire.dashboard.upload');
     }
 
-    /**
-     * @throws ConnectionException
-     */
     public function updatedPicture(): void
     {
         $this->validate([
@@ -43,24 +37,25 @@ final class Upload extends Component
 
         $url = Storage::disk('s3')->url($path);
 
-        Log::debug('Path:'.$path);
-        Log::debug('url:'.$url);
-
-        $this->calorieEstimate = app(CalorieEstimationService::class)
+        $result = app(CalorieEstimationService::class)
             ->estimateFromImage($url);
 
-        if ($this->calorieEstimate > 0) {
+        if (! $result || ! $result['contains_food']) {
             Flux::toast(
-                text: $this->calorieEstimate,
-                heading: 'Calorie Estimate',
-                variant: 'success',
-            );
-        } else {
-            Flux::toast(
-                text: 'Estimation calorie failed',
-                heading: 'Calorie Estimation Failed',
+                text: 'No food detected or estimation failed.',
+                heading: 'Error',
                 variant: 'danger',
             );
+
+            return;
         }
+
+        $this->calorieData = $result;
+
+        Flux::toast(
+            text: 'Detected: '.implode(', ', $result['items']).' — ~'.$result['estimated_calories_kcal'].' kcal',
+            heading: 'Calorie Estimate',
+            variant: 'success',
+        );
     }
 }
