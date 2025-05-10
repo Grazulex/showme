@@ -1,6 +1,6 @@
 <div>
     <div class="flex items-center gap-4">
-        <!-- Input caché AVANT le label pour être bien détecté -->
+        <!-- Input caché -->
         <input
             id="upload-picture"
             type="file"
@@ -10,14 +10,14 @@
             class="hidden"
         >
 
-        <!-- Le label entoure directement le bouton -->
+        <!-- Bouton stylé FluxUI -->
         <label for="upload-picture" class="cursor-pointer">
-            <flux:button as="div" color="blue" icon="camera">
+            <flux:button as="div" color="blue" icon="camera" wire:loading.attr="disabled">
                 Take a photo
             </flux:button>
         </label>
 
-        <!-- Preview -->
+        <!-- Aperçu image -->
         @if ($picture)
             <img
                 src="{{ $picture->temporaryUrl() }}"
@@ -25,6 +25,11 @@
                 class="w-16 h-16 object-cover rounded border border-gray-300 shadow"
             >
         @endif
+
+        <!-- Spinner pendant l'upload ou analyse -->
+        <div wire:loading wire:target="picture">
+            <div class="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
     </div>
 
     @error('picture')

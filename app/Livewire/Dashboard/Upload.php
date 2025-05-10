@@ -24,10 +24,10 @@ final class Upload extends Component
         return view('livewire.dashboard.upload');
     }
 
-    public function uploadPicture(): void
+    public function updatedPicture(): void
     {
         $this->validate([
-            'picture' => 'image|max:4096', // 1MB Max
+            'picture' => 'image|max:4096',
         ]);
 
         $path = $this->picture->store('uploads', 'public');
@@ -45,6 +45,7 @@ final class Upload extends Component
 
             return;
         }
+
         Flux::toast(
             text: $this->calorieEstimate,
             heading: 'Calorie Estimate',
