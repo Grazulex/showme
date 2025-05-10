@@ -7,6 +7,8 @@ namespace App\Livewire\Dashboard;
 use App\Services\CalorieEstimationService;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -24,6 +26,9 @@ final class Upload extends Component
         return view('livewire.dashboard.upload');
     }
 
+    /**
+     * @throws ConnectionException
+     */
     public function updatedPicture(): void
     {
         $this->validate([
@@ -31,7 +36,9 @@ final class Upload extends Component
         ]);
 
         $path = $this->picture->store('uploads', 'public');
+        Log::debug('Path:'.$path);
         $url = asset("storage/{$path}");
+        Log::debug('url:'.$url);
 
         $this->calorieEstimate = app(CalorieEstimationService::class)
             ->estimateFromImage($url);
