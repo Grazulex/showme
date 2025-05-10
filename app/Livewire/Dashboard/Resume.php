@@ -76,7 +76,7 @@ final class Resume extends Component
                 'goal_end' => Carbon::parse($goal->ended_at)->toDateString(),
                 'values_count' => $count,
                 'days_total' => Carbon::parse($goal->started_at)->diffInDays(Carbon::parse($goal->ended_at)) + 1,
-                'record_frequency' => $count / max(Carbon::parse($goal->started_at)->diffInDays(Carbon::parse($goal->ended_at)) + 1, 1),
+                'record_frequency' => $count / max(Carbon::parse($goal->started_at)->diffInDays(now()) + 1, 1),
 
             ];
         }
