@@ -48,6 +48,31 @@
                 </flux:table.rows>
             </flux:table>
         </div>
+
+        <div class="sm:hidden space-y-4">
+            @foreach ($meals as $meal)
+                <flux:card>
+                    <flux:card.header>
+                        <div class="flex items-center justify-between">
+                            <flux:badge icon="calendar" size="sm" inset="top bottom">
+                                {{ \Carbon\Carbon::parse($meal->created_at)->format('d/m/Y') }}
+                            </flux:badge>
+                            <flux:badge icon="fire" size="sm" inset="top bottom">
+                                {{ $meal->calories }} kcal
+                            </flux:badge>
+                        </div>
+                    </flux:card.header>
+                    <flux:card.body class="text-sm">
+                        {{ $meal->ingredients }}
+                    </flux:card.body>
+                    <flux:card.footer class="flex justify-end gap-2">
+                        <flux:button size="xs" wire:click="edit({{ $meal->id }})" icon="pencil" />
+                        <flux:button size="xs" wire:click="delete({{ $meal->id }})" icon="trash" variant="danger" />
+                    </flux:card.footer>
+                </flux:card>
+            @endforeach
+        </div>
+
     </div>
     <livewire:meals.create />
     <livewire:meals.edit />
