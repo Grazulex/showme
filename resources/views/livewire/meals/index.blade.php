@@ -35,7 +35,7 @@
                                 {{ $meal->ingredients }}
                             </flux:table.cell>
                             <flux:table.cell>
-                                <flux:badge icon="fire" size="sm" inset="top bottom">{{ $meal->calories }} kcal</flux:badge>
+                                <flux:badge icon="fire" size="sm" inset="top bottom">{{ $meal->calories }} cal</flux:badge>
                             </flux:table.cell>
                             <flux:table.cell>
                                 <flux:button.group>
@@ -58,7 +58,7 @@
                                 {{ \Carbon\Carbon::parse($meal->created_at)->format('d M Y H:i') }}
                             </div>
                             <flux:badge icon="fire" size="xs" color="red">
-                                {{ $meal->calories }} kcal
+                                {{ $meal->calories }} cal
                             </flux:badge>
                         </div>
 

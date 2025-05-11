@@ -3,6 +3,15 @@
         <div>
             <flux:heading size="lg">
                 {{ __('Dashboard') }}
+                @if ($TotalCaloriesForToday > $TotalCaloriesForMe)
+                    <flux:badge color="red" size="sm">
+                        {{ $TotalCaloriesForToday }}Kcal/{{ $TotalCaloriesForMe }} cal
+                    </flux:badge>
+                @else
+                    <flux:badge color="green" size="sm">
+                        {{ $TotalCaloriesForToday }}Kcal/{{ $TotalCaloriesForMe }} cal
+                    </flux:badge>
+                @endif
             </flux:heading>
             <flux:text class="mt-2">Track your progress and stay on top of your goals.</flux:text>
         </div>

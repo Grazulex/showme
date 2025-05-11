@@ -49,4 +49,10 @@ final class Meal extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getTotalForToday(): int
+    {
+        return $this->whereDate('created_at', now()->format('Y-m-d'))
+            ->sum('calories');
+    }
 }

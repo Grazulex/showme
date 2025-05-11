@@ -10,7 +10,7 @@
 
             <flux:input.group>
                 <flux:input wire:model="calories" placeholder="The calorie" type="number" step="0.01" pattern="[0-9]+([\.,][0-9]+)?" />
-                <flux:input.group.suffix>kcal</flux:input.group.suffix>
+                <flux:input.group.suffix>cal</flux:input.group.suffix>
             </flux:input.group>
 
             <flux:date-picker label="Date" wire:model="created_at" placeholder="Select a date" />
