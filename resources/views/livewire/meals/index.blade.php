@@ -34,14 +34,16 @@
                     @foreach ($meals as $meal)
                         <flux:table.row :key="$meal->id">
                             <flux:table.cell>
-                                <flux:badge icon="calendar" size="sm"
-                                            inset="top bottom">{{ \Carbon\Carbon::parse($meal->created_at)->format('d/m/Y H:i') }}</flux:badge>
+                                <flux:badge icon="calendar" size="sm" inset="top bottom">
+                                    {{ \Carbon\Carbon::parse($meal->created_at)->format('d/m/Y H:i') }}
+                                </flux:badge>
                             </flux:table.cell>
                             <flux:table.cell class="text-wrap">
                                 {{ $meal->ingredients }}
                             </flux:table.cell>
                             <flux:table.cell>
-                                <flux:badge icon="utensils" size="sm" inset="top bottom">{{ $meal->calories }}cal
+                                <flux:badge icon="utensils" size="sm" inset="top bottom">
+                                    {{ $meal->calories }}cal
                                 </flux:badge>
                             </flux:table.cell>
                             <flux:table.cell>
