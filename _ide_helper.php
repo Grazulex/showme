@@ -24456,6 +24456,27 @@ namespace App\Livewire\Values {
             }
     }
 
+namespace App\Livewire\Meals {
+    /**
+     * 
+     *
+     */
+    class Index {
+        /**
+         * 
+         *
+         * @see \Flux\FluxManager::bootModal()
+         * @param mixed $name
+         * @static 
+         */
+        public static function modal($name)
+        {
+            return \App\Livewire\Meals\Index::modal($name);
+        }
+
+            }
+    }
+
 namespace App\Livewire\Auth {
     /**
      * 
