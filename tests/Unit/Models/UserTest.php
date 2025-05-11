@@ -16,6 +16,9 @@ test('to array', function (): void {
             'email_verified_at',
             'created_at',
             'updated_at',
+            'birth_at',
+            'height',
+            'calories_each_day',
         ]);
 });
 

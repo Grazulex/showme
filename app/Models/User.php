@@ -25,12 +25,15 @@ use Illuminate\Support\Str;
  * @property string $email
  * @property string $password
  * @property string $remember_token
+ * @property CarbonInterface|null $birth_at
+ * @property int|null $height
+ * @property int|null $calories_each_day
  * @property CarbonInterface|null $created_at
  * @property CarbonInterface|null $updated_at
  * @property-read Collection<int, Topic> $topics
  * @property-read Collection<int, Goal> $goals
  * @property-read string $initials
- * @property-read CarbonInterface|null $email_verified_at
+ * @property CarbonInterface|null $email_verified_at
  * @property-read Collection<int, Value> $values
  * @property-read int|null $topics_count
  * @property-read int|null $goals_count
@@ -70,6 +73,9 @@ final class User extends Authenticatable
         'name',
         'email',
         'password',
+        'birth_at',
+        'height',
+        'calories_each_day',
     ];
 
     /**

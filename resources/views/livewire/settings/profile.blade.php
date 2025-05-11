@@ -27,6 +27,13 @@
                 @endif
             </div>
 
+            <flux:input wire:model="height" :label="__('Height')" type="number" required step="0.01" pattern="[0-9]+([\.,][0-9]+)?" />
+
+            <flux:input wire:model="calories_each_day" :label="__('Calories each day')" type="number" required step="0.01" pattern="[0-9]+([\.,][0-9]+)?" />
+
+            <flux:date-picker wire:model="birth_at" :label="__('Birth date')" placeholder="Select a date" selectable-header />
+
+
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">
                     <flux:button variant="primary" type="submit" class="w-full">{{ __('Save') }}</flux:button>

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Livewire\Settings;
 
 use App\Models\User;
+use Carbon\Carbon;
+use DateTimeImmutable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
@@ -16,6 +18,12 @@ final class Profile extends Component
 
     public string $email = '';
 
+    public ?int $height;
+
+    public ?int $calories_each_day;
+
+    public ?DateTimeImmutable $birth_at;
+
     /**
      * Mount the component.
      */
@@ -23,6 +31,9 @@ final class Profile extends Component
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+        $this->height = Auth::user()->height;
+        $this->calories_each_day = Auth::user()->calories_each_day;
+        $this->birth_at = Carbon::parse(Auth::user()->birth_at)->toImmutable();
     }
 
     /**
@@ -42,6 +53,18 @@ final class Profile extends Component
                 'email',
                 'max:255',
                 Rule::unique(User::class)->ignore($user->id),
+            ],
+            'height' => [
+                'required',
+                'integer',
+            ],
+            'calories_each_day' => [
+                'required',
+                'integer',
+            ],
+            'birth_at' => [
+                'required',
+                'date',
             ],
         ]);
 

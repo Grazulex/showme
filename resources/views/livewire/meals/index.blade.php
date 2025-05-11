@@ -29,7 +29,7 @@
                     @foreach ($meals as $meal)
                         <flux:table.row :key="$meal->id">
                             <flux:table.cell>
-                                <flux:badge icon="calendar" size="sm" inset="top bottom">{{ \Carbon\Carbon::parse($meal->created_at)->format('d/m/Y') }}</flux:badge>
+                                <flux:badge icon="calendar" size="sm" inset="top bottom">{{ \Carbon\Carbon::parse($meal->created_at)->format('d/m/Y H:i') }}</flux:badge>
                             </flux:table.cell>
                             <flux:table.cell>
                                 {{ $meal->ingredients }}
@@ -55,7 +55,7 @@
                     <div class="flex items-start justify-between">
                         <div class="space-y-1">
                             <div class="text-lg font-semibold text-gray-800 dark:text-gray-100">
-                                {{ \Carbon\Carbon::parse($meal->created_at)->format('d M Y') }}
+                                {{ \Carbon\Carbon::parse($meal->created_at)->format('d M Y H:i') }}
                             </div>
                             <flux:badge icon="fire" size="xs" color="red">
                                 {{ $meal->calories }} kcal

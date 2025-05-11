@@ -28,6 +28,9 @@ final class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'height' => fake()->numberBetween(1, 100),
+            'calories_each_day' => fake()->numberBetween(1, 100),
+            'birth_at' => fake()->dateTimeBetween('-100 years', '-18 years'),
             'email_verified_at' => now(),
             'password' => self::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
