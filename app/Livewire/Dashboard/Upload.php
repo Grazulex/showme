@@ -73,5 +73,8 @@ final class Upload extends Component
             heading: 'Calorie Estimate',
             variant: 'success',
         );
+
+        $this->reset('picture');
+        Storage::disk('s3')->delete($path);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\DashboardController;
 use App\Livewire\Goals\Index as GoalsIndex;
+use App\Livewire\Meals\Index as MealsIndex;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -24,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('topics', TopicsIndex::class)->name('topics.index');
     Route::get('goals', GoalsIndex::class)->name('goals.index');
     Route::get('values', ValuesIndex::class)->name('values.index');
+    Route::get('meals', MealsIndex::class)->name('meals.index');
 });
 
 require __DIR__.'/auth.php';
