@@ -51,27 +51,34 @@
 
         <div class="sm:hidden space-y-4">
             @foreach ($meals as $meal)
-                <flux:card>
-                    <flux:card.header>
-                        <div class="flex items-center justify-between">
-                            <flux:badge icon="calendar" size="sm" inset="top bottom">
-                                {{ \Carbon\Carbon::parse($meal->created_at)->format('d/m/Y') }}
-                            </flux:badge>
-                            <flux:badge icon="fire" size="sm" inset="top bottom">
+                <div class="rounded-2xl bg-white dark:bg-gray-800 shadow-md p-4 border border-gray-100 dark:border-gray-700 space-y-3">
+                    <div class="flex items-start justify-between">
+                        <div class="space-y-1">
+                            <div class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                                {{ \Carbon\Carbon::parse($meal->created_at)->format('d M Y') }}
+                            </div>
+                            <flux:badge icon="fire" size="xs" color="red">
                                 {{ $meal->calories }} kcal
                             </flux:badge>
                         </div>
-                    </flux:card.header>
-                    <flux:card.body class="text-sm">
+
+                        <flux:button.group>
+                            <flux:button size="xs" wire:click="edit({{ $meal->id }})" icon="pencil" />
+                            <flux:button size="xs" wire:click="delete({{ $meal->id }})" variant="danger" icon="trash" />
+                        </flux:button.group>
+                    </div>
+
+                    <div class="text-sm text-gray-500 dark:text-gray-400">
                         {{ $meal->ingredients }}
-                    </flux:card.body>
-                    <flux:card.footer class="flex justify-end gap-2">
-                        <flux:button size="xs" wire:click="edit({{ $meal->id }})" icon="pencil" />
-                        <flux:button size="xs" wire:click="delete({{ $meal->id }})" icon="trash" variant="danger" />
-                    </flux:card.footer>
-                </flux:card>
+                    </div>
+                </div>
             @endforeach
+
+            <div class="mt-4">
+                {{ $meals->links() }}
+            </div>
         </div>
+
 
     </div>
     <livewire:meals.create />
