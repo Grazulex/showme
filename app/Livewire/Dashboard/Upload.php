@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Dashboard;
 
+use App\Actions\Meals\CreateMealAction;
 use App\Services\CalorieEstimationService;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
+use Throwable;
 
 final class Upload extends Component
 {
@@ -25,6 +27,9 @@ final class Upload extends Component
         return view('livewire.dashboard.upload');
     }
 
+    /**
+     * @throws Throwable
+     */
     public function updatedPicture(): void
     {
         $this->validate([
@@ -52,6 +57,16 @@ final class Upload extends Component
         }
 
         $this->calorieData = $result;
+
+        $action = new CreateMealAction();
+        $action->handle(
+            auth()->user(),
+            [
+                'ingredients' => implode(', ', $result['items']),
+                'calories' => $result['estimated_calories_kcal'],
+                'created_at' => now(),
+            ]
+        );
 
         Flux::toast(
             text: 'Detected: '.implode(', ', $result['items']).' — ~'.$result['estimated_calories_kcal'].' kcal',

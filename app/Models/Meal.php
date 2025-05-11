@@ -27,6 +27,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder<static>|Meal whereCalories($value)
  * @method static Builder<static>|Meal whereUserId($value)
  * @method static Builder<static>|Meal whereUpdatedAt($value)
+ *
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ *
+ * @mixin \Eloquent
  */
 final class Meal extends Model
 {
@@ -37,6 +42,7 @@ final class Meal extends Model
         'ingredients',
         'calories',
         'user_id',
+        'created_at',
     ];
 
     public function user(): BelongsTo
