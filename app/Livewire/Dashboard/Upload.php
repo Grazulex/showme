@@ -8,6 +8,7 @@ use App\Actions\Meals\CreateMealAction;
 use App\Services\CalorieEstimationService;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -47,6 +48,9 @@ final class Upload extends Component
             ->estimateFromImage($url);
 
         if (! $result || ! $result['contains_food']) {
+
+            Log::debug($result->toArray());
+
             Flux::toast(
                 text: 'No food detected or estimation failed.',
                 heading: 'Error',
