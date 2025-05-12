@@ -68,7 +68,7 @@
                             <div class="text-lg font-semibold text-gray-800 dark:text-gray-100">
                                 {{ \Carbon\Carbon::parse($meal->created_at)->format('d M Y H:i') }}
                             </div>
-                            <flux:badge icon="fire" size="xs" color="red">
+                            <flux:badge icon="utensils" size="xs" color="red">
                                 {{ $meal->calories }} cal
                             </flux:badge>
                         </div>
