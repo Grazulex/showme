@@ -74,6 +74,23 @@ final class Index extends Component
         $this->dispatch('editMeal', $mealId);
     }
 
+    public function copy(int $mealId): void
+    {
+        $meal = Auth::user()->meals()->findOrFail($mealId);
+        $meal->replicate(
+            ['id', 'created_at', 'updated_at']
+        )->fill([
+            'created_at' => now(),
+            'updated_at' => now(),
+        ])->save();
+
+        Flux::toast(
+            text: 'Meal copied successfully.',
+            heading: 'Meals',
+            variant: 'success'
+        );
+    }
+
     private function getMeals(): LengthAwarePaginator
     {
         return Auth::user()->meals()

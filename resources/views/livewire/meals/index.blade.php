@@ -49,6 +49,7 @@
                             <flux:table.cell>
                                 <flux:button.group>
                                     <flux:button size="xs" wire:click="edit({{ $meal->id }})" icon="pencil"/>
+                                    <flux:button size="xs" wire:click="copy({{ $meal->id }})" variant="filled" icon="copy"/>
                                     <flux:button size="xs" wire:click="delete({{ $meal->id }})" variant="danger"
                                                  icon="trash"/>
                                 </flux:button.group>
@@ -75,6 +76,7 @@
 
                         <flux:button.group>
                             <flux:button size="xs" wire:click="edit({{ $meal->id }})" icon="pencil"/>
+                            <flux:button size="xs" wire:click="copy({{ $meal->id }})" variant="filled" icon="copy"/>
                             <flux:button size="xs" wire:click="delete({{ $meal->id }})" variant="danger" icon="trash"/>
                         </flux:button.group>
                     </div>

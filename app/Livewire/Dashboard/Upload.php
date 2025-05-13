@@ -49,7 +49,7 @@ final class Upload extends Component
 
         if (! $result || ! $result['contains_food']) {
 
-            Log::debug($result->toArray());
+            Log::debug($result);
 
             Flux::toast(
                 text: 'No food detected or estimation failed.',
