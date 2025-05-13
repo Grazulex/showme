@@ -29,7 +29,7 @@ final class SimpleLineChart extends Component
                 'value' => $v->value,
             ])
             ->toArray();
-        $this->goal = Topic::findOrFail($topicId)->getFirstActiveGoal()->target;
+        $this->goal = (float) Topic::findOrFail($topicId)->getFirstActiveGoal()->target;
     }
 
     public function getChartDataProperty(): array
