@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use JsonException;
 
 final class CalorieEstimationService
@@ -50,9 +51,9 @@ PROMPT,
         try {
             return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
-            logger()->error('Failed to decode calorie estimation JSON', [
+            Log::error('Failed to decode calorie estimation JSON', [
                 'error' => $e->getMessage(),
-                'content' => $content,
+                'response' => $content,
             ]);
 
             return null;
