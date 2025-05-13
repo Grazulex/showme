@@ -26,14 +26,9 @@
             @foreach ($topics as $topic)
                 <div
                     class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 aspect-[4/3] sm:aspect-video">
-                    {{-- <livewire:dashboard.charts.topics :topic_id="$topic->id" /> --}}
-
-                    <livewire:charts.simple-line-chart :topic_id="$topic->id"/>
+                    <livewire:dashboard.charts.topics :topic_id="$topic->id"/>
                 </div>
             @endforeach
-            <div class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 aspect-[4/3] sm:aspect-video">
-
-            </div>
         </div>
         <livewire:dashboard.resume/>
     </div>
