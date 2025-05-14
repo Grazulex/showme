@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $name
  * @property int $user_id
  * @property UnitEnum $unit
+ * @property bool $is_weight
  * @property CarbonInterface|null $created_at
  * @property CarbonInterface|null $updated_at
  * @property-read User $user
@@ -57,10 +58,12 @@ final class Topic extends Model
         'name',
         'user_id',
         'unit',
+        'is_weight',
     ];
 
     protected $casts = [
         'unit' => UnitEnum::class,
+        'is_weight' => 'boolean',
     ];
 
     public function user(): BelongsTo

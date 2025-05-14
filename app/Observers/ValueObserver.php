@@ -35,6 +35,13 @@ final class ValueObserver
         }
     }
 
+    public function created(Value $value): void
+    {
+        if ($value->topic->is_weight) {
+            $value->user->updateTDEE();
+        }
+    }
+
     public function updating(Value $value): void
     {
         if ($value->isDirty('value')) {
@@ -65,6 +72,13 @@ final class ValueObserver
         }
     }
 
+    public function updated(Value $value): void
+    {
+        if ($value->topic->is_weight) {
+            $value->user->updateTDEE();
+        }
+    }
+
     public function deleting(Value $value): void
     {
         $topic = $value->topic;
@@ -82,6 +96,13 @@ final class ValueObserver
                 ]);
             });
             $next_value->refresh();
+        }
+    }
+
+    public function deleted(Value $value): void
+    {
+        if ($value->topic->is_weight) {
+            $value->user->updateTDEE();
         }
     }
 }

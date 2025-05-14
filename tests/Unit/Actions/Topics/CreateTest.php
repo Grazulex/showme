@@ -14,16 +14,18 @@ test('create topic via action', function (): void {
         'name' => 'Test Topic',
         'description' => 'Test Topic Description',
         'unit' => UnitEnum::kilogram,
+        'is_weight' => true,
     ];
 
     $action = new CreateTopicAction();
     $topic = $action->handle($user, $attributes);
 
-    expect($topic)->toBeInstanceOf(Topic::class);
-    expect($topic->name)->toBe($attributes['name']);
-    expect($topic->description)->toBe($attributes['description']);
-    expect($topic->unit)->toBe($attributes['unit']);
-    expect($topic->user_id)->toBe($user->id);
-    expect($topic->slug)->toBe('test-topic');
+    expect($topic)->toBeInstanceOf(Topic::class)
+        ->and($topic->name)->toBe($attributes['name'])
+        ->and($topic->description)->toBe($attributes['description'])
+        ->and($topic->unit)->toBe($attributes['unit'])
+        ->and($topic->user_id)->toBe($user->id)
+        ->and($topic->slug)->toBe('test-topic')
+        ->and($topic->is_weight)->toBe($attributes['is_weight']);
 
 });

@@ -16,6 +16,14 @@
                 @endforeach
             </flux:radio.group>
 
+            <flux:field variant="inline">
+                <flux:label>Is weight ?</flux:label>
+
+                <flux:switch wire:model.live="is_weight" />
+
+                <flux:error name="is_weight" />
+            </flux:field>
+
             <div class="flex">
                 <flux:spacer />
 

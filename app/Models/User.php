@@ -6,6 +6,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enums\ActivityEnum;
+use App\Services\CalorieEstimationService;
+use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Database\Factories\UserFactory;
 use Eloquent;
@@ -28,6 +31,8 @@ use Illuminate\Support\Str;
  * @property CarbonInterface|null $birth_at
  * @property int|null $height
  * @property int|null $calories_each_day
+ * @property ActivityEnum $activity
+ * @property string|null $gender
  * @property CarbonInterface|null $created_at
  * @property CarbonInterface|null $updated_at
  * @property-read Collection<int, Topic> $topics
@@ -76,6 +81,8 @@ final class User extends Authenticatable
         'birth_at',
         'height',
         'calories_each_day',
+        'activity',
+        'gender',
     ];
 
     /**
@@ -119,6 +126,29 @@ final class User extends Authenticatable
         return $this->hasMany(Meal::class, 'user_id');
     }
 
+    public function updateTDEE(): void
+    {
+        $weight = 80;
+        $lastWeight = Topic::where('user_id', $this->id)
+            ->where('is_weight', true)
+            ->first();
+        if ($lastWeight) {
+            $weight = Value::where('user_id', $this->id)
+                ->where('topic_id', $lastWeight->id)
+                ->orderByDesc('created_at')
+                ->first()
+                ?->value;
+        }
+        $this->calories_each_day = (int) new CalorieEstimationService()->calculateTDEE(
+            weight: (float) $weight,
+            height: $this->height,
+            age: (int) Carbon::parse($this->birth_at)->diffInYears(),
+            gender: $this->gender,
+            activity: (float) $this->activity->value
+        );
+        $this->save();
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -129,6 +159,8 @@ final class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'birth_at' => 'datetime',
+            'activity' => ActivityEnum::class,
         ];
     }
 }

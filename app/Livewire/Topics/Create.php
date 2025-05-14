@@ -21,6 +21,8 @@ final class Create extends Component
 
     public string $unit = '';
 
+    public bool $is_weight = false;
+
     public function render(): View
     {
         return view('livewire.topics.create',
@@ -47,6 +49,13 @@ final class Create extends Component
                 'required',
                 Rule::in(UnitEnum::cases()),
             ],
+            'is_weight' => [
+                'required',
+                'boolean',
+                'in:0,1',
+                Rule::unique('topics', 'is_weight')
+                    ->where('user_id', Auth::user()->id),
+            ],
         ]);
 
         $action = new CreateTopicAction();
@@ -56,6 +65,7 @@ final class Create extends Component
                 'name' => $this->name,
                 'description' => $this->description,
                 'unit' => $this->unit,
+                'is_weight' => $this->is_weight,
             ]
         );
 
@@ -63,6 +73,7 @@ final class Create extends Component
             'name',
             'description',
             'unit',
+            'is_weight',
         ]);
 
         Flux::toast(

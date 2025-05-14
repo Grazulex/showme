@@ -29,10 +29,18 @@
 
             <flux:input wire:model="height" :label="__('Height')" type="number" required step="0.01" pattern="[0-9]+([\.,][0-9]+)?" />
 
-            <flux:input wire:model="calories_each_day" :label="__('Calories each day')" type="number" required step="0.01" pattern="[0-9]+([\.,][0-9]+)?" />
-
             <flux:date-picker wire:model="birth_at" :label="__('Birth date')" placeholder="Select a date" selectable-header />
 
+            <flux:radio.group wire:model="gender" :label="__('Gender')" class="mt-4">
+                <flux:radio value="male" label="Male" />
+                <flux:radio value="female" label="Female" />
+            </flux:radio.group>
+
+            <flux:select wire:model="activity" :label="__('Activity level')" >
+                @foreach ($activities as $activity)
+                    <flux:select.option value="{{ $activity->value }}">{{ $activity->label() }}</flux:select.option>
+                @endforeach
+            </flux:select>
 
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">

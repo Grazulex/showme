@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Livewire\Settings;
 
+use App\Enums\ActivityEnum;
 use App\Models\User;
 use Carbon\Carbon;
 use DateTimeImmutable;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
@@ -20,7 +22,9 @@ final class Profile extends Component
 
     public ?int $height;
 
-    public ?int $calories_each_day;
+    public ?string $activity;
+
+    public ?string $gender = null;
 
     public ?DateTimeImmutable $birth_at;
 
@@ -32,8 +36,9 @@ final class Profile extends Component
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
         $this->height = Auth::user()->height;
-        $this->calories_each_day = Auth::user()->calories_each_day;
         $this->birth_at = Carbon::parse(Auth::user()->birth_at)->toImmutable();
+        $this->activity = Auth::user()->activity->value;
+        $this->gender = Auth::user()->gender;
     }
 
     /**
@@ -58,13 +63,17 @@ final class Profile extends Component
                 'required',
                 'integer',
             ],
-            'calories_each_day' => [
-                'required',
-                'integer',
-            ],
             'birth_at' => [
                 'required',
                 'date',
+            ],
+            'activity' => [
+                'required',
+                Rule::in(ActivityEnum::cases()),
+            ],
+            'gender' => [
+                'nullable',
+                'string',
             ],
         ]);
 
@@ -72,6 +81,10 @@ final class Profile extends Component
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
+        }
+
+        if ($user->isDirty('birth_at') || $user->isDirty('height') || $user->isDirty('activity')) {
+            $user->updateTDEE();
         }
 
         $user->save();
@@ -95,5 +108,18 @@ final class Profile extends Component
         $user->sendEmailVerificationNotification();
 
         Session::flash('status', 'verification-link-sent');
+    }
+
+    /**
+     * Render the component.
+     */
+    public function render(): View
+    {
+        $activities = ActivityEnum::cases();
+
+        return view('livewire.settings.profile',
+            [
+                'activities' => $activities,
+            ]);
     }
 }

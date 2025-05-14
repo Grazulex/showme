@@ -28,6 +28,7 @@ final class TopicFactory extends Factory
             'description' => fake()->sentence(),
             'unit' => fake()->randomElement(UnitEnum::cases()),
             'user_id' => User::factory(),
+            'is_weight' => fake()->unique()->boolean(),
         ];
     }
 }

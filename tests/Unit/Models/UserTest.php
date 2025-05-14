@@ -19,6 +19,8 @@ test('to array', function (): void {
             'birth_at',
             'height',
             'calories_each_day',
+            'activity',
+            'gender',
         ]);
 });
 

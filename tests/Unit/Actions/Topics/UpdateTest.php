@@ -15,13 +15,15 @@ test('update topic via action', function (): void {
         'name' => 'Updated Topic',
         'description' => 'Updated Topic Description',
         'unit' => UnitEnum::centimeter,
+        'is_weight' => false,
     ];
 
     $action = new UpdateTopicAction();
     $action->handle($topic, $attributes);
 
-    expect($topic->name)->toBe($attributes['name']);
-    expect($topic->description)->toBe($attributes['description']);
-    expect($topic->unit)->toBe($attributes['unit']);
+    expect($topic->name)->toBe($attributes['name'])
+        ->and($topic->description)->toBe($attributes['description'])
+        ->and($topic->unit)->toBe($attributes['unit'])
+        ->and($topic->is_weight)->toBe($attributes['is_weight']);
 
 });

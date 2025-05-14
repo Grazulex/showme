@@ -18,5 +18,6 @@ test('to array', function (): void {
             'created_at',
             'id',
             'topic',
+            'user',
         ]);
 });
