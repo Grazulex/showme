@@ -60,6 +60,9 @@ use Illuminate\Support\Str;
  * @method static Builder<static>|User wherePassword($value)
  * @method static Builder<static>|User whereRememberToken($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
+ * @method static Builder<static>|User whereBirthAt($value)
+ * @method static Builder<static>|User whereCaloriesEachDay($value)
+ * @method static Builder<static>|User whereHeight($value)
  *
  * @mixin Eloquent
  */
