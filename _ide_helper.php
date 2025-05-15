@@ -26092,6 +26092,23 @@ namespace App\Livewire\Meals {
     }
 }
 
+namespace App\Livewire\Configurations {
+    final class Index
+    {
+        /**
+         * @see \Flux\FluxManager::bootModal()
+         *
+         * @param  mixed  $name
+         *
+         * @static
+         */
+        public static function modal($name)
+        {
+            return self::modal($name);
+        }
+    }
+}
+
 namespace App\Livewire\Auth {
     final class Login
     {

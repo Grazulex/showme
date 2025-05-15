@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property-read Topic|null $topicCalorieIn
+ * @property-read Topic|null $topicCalorieOut
+ * @property-read Topic|null $topicWeight
+ *
+ * @method static \Database\Factories\ConfigurationFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Configuration newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Configuration newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Configuration query()
+ *
+ * @mixin \Eloquent
+ */
 final class Configuration extends Model
 {
     use HasFactory;

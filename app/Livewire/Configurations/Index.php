@@ -23,17 +23,8 @@ final class Index extends Component
     {
         $configuration = Configuration::first();
         if ($configuration) {
-            /*
-             * @phpstan-ignore-next-line
-             */
             $this->topicWeight = $configuration->topicWeight->id;
-            /*
-             * @phpstan-ignore-next-line
-             */
             $this->topicCalorieIn = $configuration->topicCalorieIn->id;
-            /*
-             * @phpstan-ignore-next-line
-             */
             $this->topicCalorieOut = $configuration->topicCalorieOut->id;
         }
     }
