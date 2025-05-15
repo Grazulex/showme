@@ -25,7 +25,6 @@ test('create topic via action', function (): void {
         ->and($topic->description)->toBe($attributes['description'])
         ->and($topic->unit)->toBe($attributes['unit'])
         ->and($topic->user_id)->toBe($user->id)
-        ->and($topic->slug)->toBe('test-topic')
-        ->and($topic->is_weight)->toBe($attributes['is_weight']);
+        ->and($topic->slug)->toBe('test-topic');
 
 });

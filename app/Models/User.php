@@ -138,12 +138,10 @@ final class User extends Authenticatable
     public function updateTDEE(): void
     {
         $weight = 80;
-        $lastWeight = Topic::where('user_id', $this->id)
-            ->where('is_weight', true)
-            ->first();
-        if ($lastWeight) {
+        $configuration = Configuration::where('user_id', $this->id)->first();
+        if ($configuration && $configuration->topicWeight) {
             $weight = Value::where('user_id', $this->id)
-                ->where('topic_id', $lastWeight->id)
+                ->where('topic_id', $configuration->topicWeight->id)
                 ->orderByDesc('created_at')
                 ->first()
                 ?->value;

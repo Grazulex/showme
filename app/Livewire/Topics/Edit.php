@@ -25,8 +25,6 @@ final class Edit extends Component
 
     public string $unit = '';
 
-    public bool $is_weight = false;
-
     public function render(): View
     {
         return view('livewire.topics.edit', ['units' => UnitEnum::cases()]);
@@ -40,7 +38,6 @@ final class Edit extends Component
         $this->name = $topic->name;
         $this->description = $topic->description;
         $this->unit = $topic->unit->value;
-        $this->is_weight = $topic->is_weight;
 
         Flux::modal('edit-topic')->show();
     }
@@ -65,12 +62,6 @@ final class Edit extends Component
                 'required',
                 Rule::in(UnitEnum::cases()),
             ],
-            'is_weight' => [
-                Rule::unique('topics', 'is_weight')
-                    ->where('user_id', Auth::user()->id)
-                    ->where('is_weight', true)
-                    ->ignore($this->topicId),
-            ],
         ]);
 
         $action = new UpdateTopicAction();
@@ -80,7 +71,6 @@ final class Edit extends Component
                 'name' => $this->name,
                 'description' => $this->description,
                 'unit' => $this->unit,
-                'is_weight' => $this->is_weight,
             ]
         );
 
@@ -89,7 +79,6 @@ final class Edit extends Component
                 'name',
                 'description',
                 'unit',
-                'is_weight',
             ]
         );
 

@@ -25,7 +25,7 @@ final class CreateTopicAction
                     'slug' => Str::slug($attributes['name']),
                     'description' => $attributes['description'],
                     'unit' => $attributes['unit'],
-                    'is_weight' => $attributes['is_weight'],                ]
+                ]
             );
         });
     }

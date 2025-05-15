@@ -15,7 +15,6 @@ test('update topic via action', function (): void {
         'name' => 'Updated Topic',
         'description' => 'Updated Topic Description',
         'unit' => UnitEnum::centimeter,
-        'is_weight' => false,
     ];
 
     $action = new UpdateTopicAction();
@@ -23,7 +22,6 @@ test('update topic via action', function (): void {
 
     expect($topic->name)->toBe($attributes['name'])
         ->and($topic->description)->toBe($attributes['description'])
-        ->and($topic->unit)->toBe($attributes['unit'])
-        ->and($topic->is_weight)->toBe($attributes['is_weight']);
+        ->and($topic->unit)->toBe($attributes['unit']);
 
 });

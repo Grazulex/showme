@@ -35,7 +35,6 @@ test('need to fill all fields', function () {
         ->set('name', '')
         ->set('description', '')
         ->set('unit', '')
-        ->set('is_weight', false)
         ->call('submit')
         ->assertHasErrors(['name', 'description', 'unit']);
 });

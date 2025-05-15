@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
+use App\Models\Configuration;
 use App\Models\Value;
 use App\Services\Color;
 use Carbon\Carbon;
@@ -37,7 +38,8 @@ final class ValueObserver
 
     public function created(Value $value): void
     {
-        if ($value->topic->is_weight) {
+        $configuration = Configuration::where('user_id', $value->user_id)->first();
+        if ($configuration && $value->topic->id === $configuration->topicWeight->id) {
             $value->user->updateTDEE();
         }
     }
@@ -74,7 +76,8 @@ final class ValueObserver
 
     public function updated(Value $value): void
     {
-        if ($value->topic->is_weight) {
+        $configuration = Configuration::where('user_id', $value->user_id)->first();
+        if ($configuration && $value->topic->id === $configuration->topicWeight->id) {
             $value->user->updateTDEE();
         }
     }
@@ -101,7 +104,8 @@ final class ValueObserver
 
     public function deleted(Value $value): void
     {
-        if ($value->topic->is_weight) {
+        $configuration = Configuration::where('user_id', $value->user_id)->first();
+        if ($configuration && $value->topic->id === $configuration->topicWeight->id) {
             $value->user->updateTDEE();
         }
     }

@@ -27,7 +27,7 @@ final class Index extends Component
     public ?DateRange $filterDateRange;
 
     #[On('reloadMeals')]
-    public function reloadValues(): void
+    public function reloadMeals(): void
     {
         $this->resetPage();
     }

@@ -14,7 +14,6 @@ test('to array', function () {
             'description',
             'unit',
             'user_id',
-            'is_weight',
             'updated_at',
             'created_at',
             'id',
