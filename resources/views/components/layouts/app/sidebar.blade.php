@@ -18,6 +18,7 @@
                     <flux:navlist.item icon="medal" :href="route('goals.index')" :current="request()->routeIs('goals.*')" wire:navigate>{{ __('Goals') }}</flux:navlist.item>
                     <flux:navlist.item icon="presentation-chart-line" :href="route('values.index')" :current="request()->routeIs('values.*')" wire:navigate>{{ __('Values') }}</flux:navlist.item>
                     <flux:navlist.item icon="fire" :href="route('meals.index')" :current="request()->routeIs('meals.*')" wire:navigate>{{ __('Meals') }}</flux:navlist.item>
+                    <flux:navlist.item icon="user" :href="route('configurations.index')" :current="request()->routeIs('configurations.*')" wire:navigate>{{ __('Configurations') }}</flux:navlist.item>
                 </flux:navlist.group>
 
             </flux:navlist>
