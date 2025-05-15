@@ -13,11 +13,11 @@ use Livewire\Component;
 
 final class Index extends Component
 {
-    public $topicWeight;
+    public $topicWeight; // @pest-ignore-type
 
-    public $topicCalorieIn;
+    public $topicCalorieIn; // @pest-ignore-type
 
-    public $topicCalorieOut;
+    public $topicCalorieOut; // @pest-ignore-type
 
     public function mount(): void
     {
@@ -26,15 +26,15 @@ final class Index extends Component
             /*
              * @phpstan-ignore-next-line
              */
-            $this->topicWeight = $configuration->topicWeight->id; // @pest-ignore-type
+            $this->topicWeight = $configuration->topicWeight->id;
             /*
              * @phpstan-ignore-next-line
              */
-            $this->topicCalorieIn = $configuration->topicCalorieIn->id; // @pest-ignore-type
+            $this->topicCalorieIn = $configuration->topicCalorieIn->id;
             /*
              * @phpstan-ignore-next-line
              */
-            $this->topicCalorieOut = $configuration->topicCalorieOut->id; // @pest-ignore-type
+            $this->topicCalorieOut = $configuration->topicCalorieOut->id;
         }
     }
 
