@@ -66,7 +66,6 @@ final class Edit extends Component
                 Rule::in(UnitEnum::cases()),
             ],
             'is_weight' => [
-                'boolean',
                 Rule::unique('topics', 'is_weight')
                     ->where('user_id', Auth::user()->id)
                     ->where('is_weight', true)

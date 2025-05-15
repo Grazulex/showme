@@ -50,9 +50,6 @@ final class Create extends Component
                 Rule::in(UnitEnum::cases()),
             ],
             'is_weight' => [
-                'required',
-                'boolean',
-                'in:0,1',
                 Rule::unique('topics', 'is_weight')
                     ->where('user_id', Auth::user()->id),
             ],

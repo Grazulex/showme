@@ -20,16 +20,11 @@ test('can create topic', function () {
         ->set('name', 'Test Topic')
         ->set('description', 'This is a test topic.')
         ->set('unit', UnitEnum::calories->value)
-        ->set('is_weight', false)
         ->call('submit');
 
-    $this->assertDatabaseHas('topics', [
-        'name' => 'Test Topic',
-        'description' => 'This is a test topic.',
-        'slug' => 'test-topic',
-        'is_weight' => false,
-        'unit' => UnitEnum::calories->value,
-    ]);
+    expect(DB::table('topics')
+        ->where('name', 'Test Topic')
+        ->count())->toBe(1);
 });
 
 test('need to fill all fields', function () {

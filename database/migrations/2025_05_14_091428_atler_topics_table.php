@@ -13,5 +13,16 @@ return new class extends Migration
         Schema::table('topics', function (Blueprint $table) {
             $table->boolean('is_weight')->default(false);
         });
+
+        $weightTopics = DB::table('topics')
+            ->where('name', 'Poids')
+            ->first();
+
+        if ($weightTopics) {
+            DB::table('topics')
+                ->where('id', $weightTopics->id)
+                ->update(['is_weight' => true]);
+        }
+
     }
 };

@@ -15,7 +15,7 @@ it('renders successfully', function () {
         ->assertStatus(200);
 });
 
-test('show topcis', function () {
+test('show topics', function () {
     $user = User::factory()->create();
     $this->actingAs($user);
 
