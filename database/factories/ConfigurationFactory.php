@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Models\Configuration;
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class ConfigurationFactory extends Factory
@@ -19,6 +20,7 @@ final class ConfigurationFactory extends Factory
             'topic_weight' => Topic::factory(),
             'topic_calorie_in' => Topic::factory(),
             'topic_calorie_out' => Topic::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

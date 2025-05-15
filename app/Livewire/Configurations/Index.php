@@ -21,7 +21,7 @@ final class Index extends Component
 
     public function mount(): void
     {
-        $configuration = Configuration::first();
+        $configuration = Configuration::where('user_id', Auth::user()->id)->first();
         if ($configuration) {
             $this->topicWeight = $configuration->topicWeight->id;
             $this->topicCalorieIn = $configuration->topicCalorieIn->id;
@@ -49,9 +49,10 @@ final class Index extends Component
             'topicCalorieOut' => 'required',
         ]);
 
-        $configuration = Configuration::first();
+        $configuration = Configuration::where('user_id', Auth::user()->id)->first();
         if (! $configuration) {
             $configuration = new Configuration();
+            $configuration->user_id = Auth::user()->id;
         }
         $configuration->topic_weight = Topic::where('id', $this->topicWeight)->first()->id;
         $configuration->topic_calorie_in = Topic::where('id', $this->topicCalorieIn)->first()->id;

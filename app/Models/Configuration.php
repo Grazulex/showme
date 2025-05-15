@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read Topic|null $topicCalorieIn
  * @property-read Topic|null $topicCalorieOut
  * @property-read Topic|null $topicWeight
+ * @property-read User|null $user
  *
  * @method static \Database\Factories\ConfigurationFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Configuration newModelQuery()
@@ -30,6 +31,7 @@ final class Configuration extends Model
         'topic_weight',
         'topic_calorie_in',
         'topic_calorie_out',
+        'user_id',
     ];
 
     public function topicWeight(): BelongsTo
@@ -45,5 +47,10 @@ final class Configuration extends Model
     public function topicCalorieOut(): BelongsTo
     {
         return $this->belongsTo(Topic::class, 'topic_calorie_out');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
