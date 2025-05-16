@@ -20,3 +20,10 @@ test('to array', function (): void {
             'topic',
         ]);
 });
+
+test('relation with user', function (): void {
+    $value = Value::factory()->create();
+
+    expect($value->user)
+        ->toBeInstanceOf(App\Models\User::class);
+});

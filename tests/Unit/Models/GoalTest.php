@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Goal;
+use App\Models\User;
 
 test('to array', function (): void {
     $goal = Goal::factory()->create();
@@ -20,4 +21,11 @@ test('to array', function (): void {
             'created_at',
             'id',
         ]);
+});
+
+test('relation with user', function (): void {
+    $goal = Goal::factory()->create();
+
+    expect($goal->user)
+        ->toBeInstanceOf(User::class);
 });

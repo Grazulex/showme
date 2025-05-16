@@ -17,3 +17,10 @@ test('to array', function (): void {
             'id',
         ]);
 });
+
+test('relation with user', function (): void {
+    $meal = Meal::factory()->create();
+
+    expect($meal->user)
+        ->toBeInstanceOf(App\Models\User::class);
+});

@@ -46,6 +46,15 @@ PROMPT,
             'max_tokens' => 500,
         ]);
 
+        if ($response->failed()) {
+            Log::error('Failed to call OpenAI API', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
+
+            return null;
+        }
+
         $content = $response->json('choices.0.message.content');
 
         try {

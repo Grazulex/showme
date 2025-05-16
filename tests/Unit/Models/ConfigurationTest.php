@@ -16,3 +16,22 @@ test('to array', function (): void {
             'id',
         ]);
 });
+
+test('relation with user', function (): void {
+    $configuration = Configuration::factory()->create();
+
+    expect($configuration->user)
+        ->toBeInstanceOf(App\Models\User::class);
+});
+
+test('relation with topic', function (): void {
+    $configuration = Configuration::factory()->create();
+
+    expect($configuration->topicWeight)
+        ->toBeInstanceOf(App\Models\Topic::class)
+        ->and($configuration->topicCalorieIn)
+        ->toBeInstanceOf(App\Models\Topic::class)
+        ->and($configuration->topicCalorieOut)
+        ->toBeInstanceOf(App\Models\Topic::class);
+
+});
