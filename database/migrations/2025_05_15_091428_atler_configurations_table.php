@@ -10,8 +10,11 @@ return new class extends Migration
 {
     public function up(): void
     {
+        DB::table('configurations')
+            ->delete();
+
         Schema::table('configurations', function (Blueprint $table) {
-            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
         });
     }
 };
