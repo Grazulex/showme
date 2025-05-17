@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Meal;
 use App\Models\Value;
+use App\Observers\MealObserver;
 use App\Observers\ValueObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +38,7 @@ final class AppServiceProvider extends ServiceProvider
         $this->configureDate();
 
         Value::observe(ValueObserver::class);
+        Meal::observe(MealObserver::class);
     }
 
     private function configureCommands(): void
