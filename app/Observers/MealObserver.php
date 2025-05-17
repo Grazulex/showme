@@ -29,7 +29,7 @@ final class MealObserver
 
     private function updateCalorieIn(Meal $meal): void
     {
-        if ($calorieIn = $this->getIfTopicCalorieOut()) {
+        if (($calorieIn = $this->getIfTopicCalorieOut()) instanceof Topic) {
             $TotalCaloriesSameDay = Meal::where('user_id', Auth::id())
                 ->whereDate('created_at', $meal->created_at->toDateString())
                 ->sum('calories');
@@ -56,7 +56,7 @@ final class MealObserver
 
     private function getIfTopicCalorieOut(): ?Topic
     {
-        $configuration = Configuration::where('user_id', Auth::id())->first()->topic_calorie_in;
+        $configuration = Configuration::where('user_id', Auth::id())->first()?->topic_calorie_in;
         if ($configuration) {
             return Topic::find($configuration);
         }
