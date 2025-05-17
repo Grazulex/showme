@@ -8,7 +8,6 @@ use App\Models\Configuration;
 use App\Models\Meal;
 use App\Models\Topic;
 use App\Models\Value;
-use Illuminate\Support\Facades\Auth;
 
 final class MealObserver
 {
@@ -29,13 +28,13 @@ final class MealObserver
 
     private function updateCalorieIn(Meal $meal): void
     {
-        if (($calorieIn = $this->getIfTopicCalorieOut()) instanceof Topic) {
-            $TotalCaloriesSameDay = Meal::where('user_id', Auth::id())
+        if (($calorieIn = $this->getIfTopicCalorieOut($meal)) instanceof Topic) {
+            $TotalCaloriesSameDay = Meal::where('user_id', $meal->user_id)
                 ->whereDate('created_at', $meal->created_at->toDateString())
                 ->sum('calories');
 
             $value = Value::where('topic_id', $calorieIn->id)
-                ->where('user_id', Auth::id())
+                ->where('user_id', $meal->user_id)
                 ->whereDate('created_at', $meal->created_at->toDateString())
                 ->first();
 
@@ -46,7 +45,7 @@ final class MealObserver
             } else {
                 Value::create([
                     'topic_id' => $calorieIn->id,
-                    'user_id' => Auth::id(),
+                    'user_id' => $meal->user_id,
                     'value' => $TotalCaloriesSameDay,
                     'created_at' => $meal->created_at->toDateString(),
                 ]);
@@ -54,11 +53,11 @@ final class MealObserver
         }
     }
 
-    private function getIfTopicCalorieOut(): ?Topic
+    private function getIfTopicCalorieOut(Meal $meal): ?Topic
     {
-        $configuration = Configuration::where('user_id', Auth::id())->first()?->topic_calorie_in;
-        if ($configuration) {
-            return Topic::find($configuration);
+        $configuration = Configuration::where('user_id', $meal->user_id)->first();
+        if ($configuration && $configuration->topicCalorieIn) {
+            return $configuration->topicCalorieIn;
         }
 
         return null;

@@ -12,10 +12,10 @@ test('to array', function (): void {
             'user_id',
             'topic_id',
             'value',
+            'created_at',
             'diff_with_last',
             'color',
             'updated_at',
-            'created_at',
             'id',
             'topic',
         ]);

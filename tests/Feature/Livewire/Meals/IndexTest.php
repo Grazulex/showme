@@ -79,3 +79,28 @@ test('can relead meals', function () {
         ->assertStatus(200);
 
 });
+
+test('can copy meal', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    $meal = Meal::factory()->create(['user_id' => $user->id]);
+
+    Livewire::test(Index::class)
+        ->call('copy', $meal->id);
+
+    expect(Meal::where('ingredients', $meal->ingredients)->count())->toBe(2);
+});
+
+test('can sort table', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    Meal::factory()->count(15)->create(['user_id' => $user->id]);
+
+    Livewire::test(Index::class)
+        ->set('sortBy', 'ingredients')
+        ->set('sortDirection', 'asc')
+        ->assertSee(Meal::orderBy('ingredients')->first()->ingredients);
+
+});
