@@ -24,6 +24,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
 /**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -48,7 +50,6 @@ use Illuminate\Support\Str;
  * @property-read int|null $values_count
  * @property-read Collection<int, Meal> $meals
  * @property-read int|null $meals_count
- *
  * @method static UserFactory factory($count = null, $state = [])
  * @method static Builder<static>|User newModelQuery()
  * @method static Builder<static>|User newQuery()
@@ -64,7 +65,8 @@ use Illuminate\Support\Str;
  * @method static Builder<static>|User whereBirthAt($value)
  * @method static Builder<static>|User whereCaloriesEachDay($value)
  * @method static Builder<static>|User whereHeight($value)
- *
+ * @method static Builder<static>|User whereActivity($value)
+ * @method static Builder<static>|User whereGender($value)
  * @mixin Eloquent
  */
 final class User extends Authenticatable

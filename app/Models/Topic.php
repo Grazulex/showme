@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property int $user_id
@@ -31,7 +33,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $values_count
  * @property string $slug
  * @property string $description
- *
  * @method static TopicFactory factory($count = null, $state = [])
  * @method static Builder<static>|Topic newModelQuery()
  * @method static Builder<static>|Topic newQuery()
@@ -44,7 +45,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder<static>|Topic whereUnit($value)
  * @method static Builder<static>|Topic whereUpdatedAt($value)
  * @method static Builder<static>|Topic whereUserId($value)
- *
+ * @property int $is_weight
+ * @method static Builder<static>|Topic whereIsWeight($value)
  * @mixin Eloquent
  */
 final class Topic extends Model
