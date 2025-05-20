@@ -131,7 +131,7 @@ final class Topics extends Component
             $this->willReachTarget = null;
         }
 
-        if ($this->trend !== null) {
+        if ($this->trend !== null && $this->trend > 0) {
             $firstValue = $values->first()->value;
             $remaining = $goal->target - $firstValue;
 
