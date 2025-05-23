@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property int $id
  * @property int $topic_id
  * @property int $user_id
@@ -25,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property CarbonInterface|null $updated_at
  * @property Topic $topic
  * @property User $user
+ *
  * @method static ValueFactory factory($count = null, $state = [])
  * @method static Builder<static>|Value newModelQuery()
  * @method static Builder<static>|Value newQuery()
@@ -37,6 +36,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder<static>|Value whereUpdatedAt($value)
  * @method static Builder<static>|Value whereUserId($value)
  * @method static Builder<static>|Value whereValue($value)
+ *
  * @mixin Eloquent
  */
 final class Value extends Model

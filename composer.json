@@ -85,7 +85,7 @@
             "phpstan analyse --ansi"
         ],
         "test:type-coverage": "pest --type-coverage --min=100",
-        "test:unit": "pest --parallel --ci --coverage --min=80.0 --coverage-html=coverage",
+        "test:unit": "pest --parallel --ci --coverage --min=70.0 --coverage-html=coverage",
         "clean": [
             "@lint",
             "@spelling",

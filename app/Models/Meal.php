@@ -11,13 +11,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property int $id
  * @property string $ingredients
  * @property int $calories
  * @property int $user_id
  * @property-read User $user
+ *
  * @method static TopicFactory factory($count = null, $state = [])
  * @method static Builder<static>|Meal newModelQuery()
  * @method static Builder<static>|Meal newQuery()
@@ -28,8 +27,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder<static>|Meal whereCalories($value)
  * @method static Builder<static>|Meal whereUserId($value)
  * @method static Builder<static>|Meal whereUpdatedAt($value)
+ *
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ *
  * @mixin \Eloquent
  */
 final class Meal extends Model

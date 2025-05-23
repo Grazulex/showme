@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property int $topic_id
@@ -28,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property CarbonInterface|null $updated_at
  * @property-read User $user
  * @property-read Topic $topic
+ *
  * @method static GoalFactory factory($count = null, $state = [])
  * @method static Builder<static>|Goal newModelQuery()
  * @method static Builder<static>|Goal newQuery()
@@ -42,6 +41,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder<static>|Goal whereType($value)
  * @method static Builder<static>|Goal whereUpdatedAt($value)
  * @method static Builder<static>|Goal whereUserId($value)
+ *
  * @mixin Eloquent
  */
 final class Goal extends Model
