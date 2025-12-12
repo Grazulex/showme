@@ -1,24 +1,65 @@
 <div>
     <flux:modal name="edit-meal" class="md:w-200">
         <div class="space-y-6">
-            <div>
-                <flux:heading size="lg">Edit meal</flux:heading>
-                <flux:text class="mt-2">Edit a meal</flux:text>
+            {{-- Modern Header --}}
+            <div class="border-b border-amber-100 dark:border-amber-900/30 pb-4">
+                <flux:heading size="lg" class="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                    Edit Meal
+                </flux:heading>
+                <flux:text class="mt-2 text-gray-600 dark:text-gray-400">
+                    Update your meal details
+                </flux:text>
             </div>
 
-            <flux:input wire:model="ingredients" placeholder="Ingredients" type="text" />
+            {{-- Form Fields --}}
+            <div class="space-y-5">
+                <flux:input
+                    label="Ingredients"
+                    wire:model="ingredients"
+                    placeholder="List your ingredients"
+                    type="text"
+                    class="focus:ring-amber-500 focus:border-amber-500"
+                />
 
-            <flux:input.group>
-                <flux:input wire:model="calories" placeholder="The calorie" type="number" step="0.01" pattern="[0-9]+([\.,][0-9]+)?" />
-                <flux:input.group.suffix>cal</flux:input.group.suffix>
-            </flux:input.group>
+                <flux:input.group>
+                    <flux:input
+                        label="Calories"
+                        wire:model="calories"
+                        placeholder="Calorie count"
+                        type="number"
+                        step="0.01"
+                        pattern="[0-9]+([\.,][0-9]+)?"
+                        class="focus:ring-amber-500 focus:border-amber-500"
+                    />
+                    <flux:input.group.suffix>cal</flux:input.group.suffix>
+                </flux:input.group>
 
-            <flux:date-picker label="Date" wire:model="created_at" placeholder="Select a date" />
+                <flux:date-picker
+                    label="Date"
+                    wire:model="created_at"
+                    placeholder="Select a date"
+                    class="focus:ring-amber-500 focus:border-amber-500"
+                />
+            </div>
 
-            <div class="flex">
+            {{-- Actions --}}
+            <div class="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <flux:spacer />
 
-                <flux:button type="submit" wire:click="submit" variant="primary">Update</flux:button>
+                <flux:modal.close>
+                    <flux:button variant="ghost" class="hover:bg-gray-100 dark:hover:bg-gray-800">
+                        Cancel
+                    </flux:button>
+                </flux:modal.close>
+
+                <flux:button
+                    type="submit"
+                    wire:click="submit"
+                    variant="primary"
+                    class="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 shadow-lg shadow-amber-500/25 transform hover:scale-105 transition-all duration-200"
+                >
+                    Update Meal
+                </flux:button>
             </div>
         </div>
     </flux:modal>

@@ -50,6 +50,16 @@ final class Topics extends Component
 
     public ?Carbon $estimatedTargetDate = null;
 
+    public ?float $totalChange = null;
+
+    public ?float $bestValue = null;
+
+    public ?float $worstValue = null;
+
+    public ?string $bestDate = null;
+
+    public ?string $worstDate = null;
+
     public function mount(int $topic_id): void
     {
         $this->topic = Topic::find($topic_id);
@@ -63,6 +73,18 @@ final class Topics extends Component
     {
         $this->goal = $this->topic->getFirstActiveGoal();
         $goal = $this->goal;
+
+        // Vérifier si un goal actif existe
+        if (! $goal instanceof Goal) {
+            $this->chartData = [];
+            $this->trend = null;
+            $this->score = null;
+            $this->trendState = 'neutral';
+            $this->values = collect();
+
+            return;
+        }
+
         /** @var Collection<Value> $values */
         $values = $this->topic->values()
             ->where('user_id', auth()->id())
@@ -73,7 +95,7 @@ final class Topics extends Component
 
         $this->values = $values;
 
-        if ($values->count() < 2 || ! $goal instanceof Goal) {
+        if ($values->count() < 2) {
             $this->chartData = [];
             $this->trend = null;
             $this->score = null;
@@ -144,6 +166,28 @@ final class Topics extends Component
             }
         } else {
             $this->estimatedTargetDate = null;
+        }
+
+        // Calculate additional statistics
+        if ($values->count() > 0) {
+            $this->totalChange = $latest - $values->first()->value;
+
+            $maxValue = (float) $values->max('value');
+            $minValue = (float) $values->min('value');
+
+            $this->bestValue = $goal->type === GoalTypeEnum::increase ? $maxValue : $minValue;
+            $this->worstValue = $goal->type === GoalTypeEnum::increase ? $minValue : $maxValue;
+
+            $bestItem = $goal->type === GoalTypeEnum::increase
+                ? $values->where('value', $maxValue)->first()
+                : $values->where('value', $minValue)->first();
+
+            $worstItem = $goal->type === GoalTypeEnum::increase
+                ? $values->where('value', $minValue)->first()
+                : $values->where('value', $maxValue)->first();
+
+            $this->bestDate = $bestItem?->created_at->format('d/m/Y');
+            $this->worstDate = $worstItem?->created_at->format('d/m/Y');
         }
     }
 

@@ -64,3 +64,130 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+/* Custom Gradients for ShowMe Dashboard */
+@layer components {
+    .gradient-emerald {
+        background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+    }
+
+    .gradient-sky {
+        background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+    }
+
+    .gradient-amber {
+        background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+    }
+
+    .gradient-rose {
+        background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
+    }
+
+    .gradient-purple {
+        background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+    }
+
+    /* Card Hover Animation */
+    .card-hover {
+        transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Glass Card Effect */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .dark .glass-card {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Gradient Text */
+    .gradient-text-emerald {
+        background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Progress Bar Animation */
+    .progress-bar {
+        transition: width 0.5s ease-in-out;
+    }
+
+    /* Fade In Animation */
+    .fade-in {
+        animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Pulse Animation for badges */
+    .pulse-slow {
+        animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Modern Menu Styles */
+    .menu-modern [aria-current="page"],
+    .menu-modern [data-flux-navlist-item][aria-current="page"] {
+        background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(20, 184, 166, 0.1) 100%);
+        border-left: 3px solid #10b981;
+        font-weight: 600;
+    }
+
+    .dark .menu-modern [aria-current="page"],
+    .dark .menu-modern [data-flux-navlist-item][aria-current="page"] {
+        background: linear-gradient(90deg, rgba(16, 185, 129, 0.15) 0%, rgba(20, 184, 166, 0.15) 100%);
+        border-left: 3px solid #14b8a6;
+    }
+
+    /* Sidebar scroll enhancement */
+    .sidebar-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+        background: rgba(16, 185, 129, 0.3);
+        border-radius: 3px;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+        background: rgba(16, 185, 129, 0.5);
+    }
+
+    /* Smooth page transitions */
+    .page-transition {
+        animation: pageSlideIn 0.3s ease-out;
+    }
+
+    @keyframes pageSlideIn {
+        from {
+            opacity: 0;
+            transform: translateX(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
