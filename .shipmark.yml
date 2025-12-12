@@ -1,0 +1,126 @@
+# Shipmark Configuration for ShowMe
+# Health tracking application - Release automation
+
+# Project information
+project:
+  name: ShowMe
+  description: Modern health and fitness tracking application
+
+# Version management
+versioning:
+  scheme: semver # MAJOR.MINOR.PATCH
+  prefix: v # Tags will be v1.0.0, v1.1.0, etc.
+
+# Commit message conventions
+commits:
+  convention: conventional # Use Conventional Commits
+  types:
+    feat: New Features
+    fix: Bug Fixes
+    docs: Documentation
+    style: Code Style & Formatting
+    refactor: Code Refactoring
+    perf: Performance Improvements
+    test: Tests
+    build: Build System
+    ci: CI/CD
+    chore: Maintenance
+
+# Changelog configuration
+changelog:
+  enabled: true
+  file: CHANGELOG.md
+  sections:
+    - type: feat
+      title: "✨ New Features"
+      description: "New features and enhancements"
+    - type: fix
+      title: "🐛 Bug Fixes"
+      description: "Bug fixes and corrections"
+    - type: perf
+      title: "⚡ Performance"
+      description: "Performance improvements"
+    - type: refactor
+      title: "♻️ Refactoring"
+      description: "Code refactoring"
+    - type: docs
+      title: "📚 Documentation"
+      description: "Documentation updates"
+    - type: style
+      title: "🎨 Styling"
+      description: "UI/UX improvements and styling"
+    - type: test
+      title: "🧪 Tests"
+      description: "Test updates"
+    - type: build
+      title: "🏗️ Build"
+      description: "Build system changes"
+    - type: ci
+      title: "🔧 CI/CD"
+      description: "CI/CD changes"
+    - type: chore
+      title: "📦 Maintenance"
+      description: "Maintenance and chores"
+
+  # Breaking changes highlighting
+  breaking_changes:
+    enabled: true
+    title: "⚠️ BREAKING CHANGES"
+
+# Release notes template
+release:
+  template: |
+    # Release {{version}}
+
+    Released on {{date}}
+
+    {{description}}
+
+    ## Changes
+
+    {{changelog}}
+
+    ## Installation
+
+    ```bash
+    git clone https://github.com/your-org/showme.git
+    cd showme
+    composer install
+    npm install
+    cp .env.example .env
+    php artisan key:generate
+    php artisan migrate
+    ```
+
+    ## Upgrade Guide
+
+    ```bash
+    git pull origin main
+    composer install
+    npm install
+    php artisan migrate
+    php artisan config:clear
+    php artisan cache:clear
+    ```
+
+    ---
+
+    Full changelog: {{compare_url}}
+
+# Git configuration
+git:
+  main_branch: main
+  tag_message: "Release {{version}}"
+
+# GitHub integration (optional)
+github:
+  enabled: false
+  repository: your-org/showme
+
+# Hooks (optional commands to run)
+hooks:
+  pre_release:
+    - composer test:lint
+    - composer test:types
+  post_release:
+    - echo "Release {{version}} completed!"
