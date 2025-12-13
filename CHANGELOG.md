@@ -2,6 +2,15 @@
 
 All notable changes to ShowMe will be documented in this file.
 
+## [1.0.1](https://github.com/Grazulex/showme/releases/tag/v1.0.1) (2025-12-13)
+
+### Bug Fixes
+
+- correct DatabaseSeeder to use proper configurations table columns ([d2dbe58](https://github.com/Grazulex/showme/commit/d2dbe58ccf4f0c1be23fa67d0e56c8bdfeaf44d2))
+
+### Documentation
+
+- add Shipmark configuration and CHANGELOG for v1.0.0 ([e5deaf2](https://github.com/Grazulex/showme/commit/e5deaf260f189de9ad7bbd233ff95fb3722935de))
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
