@@ -1,0 +1,71 @@
+# Fichiers et dossiers à ignorer lors du build Docker
+
+# Git
+.git
+.gitignore
+.gitattributes
+.github
+
+# IDE
+.idea
+.vscode
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php
+*.sublime-project
+*.sublime-workspace
+
+# Dépendances (seront installées dans le conteneur)
+/vendor
+/node_modules
+
+# Laravel
+.env
+.env.backup
+.env.docker
+.env.production
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*
+bootstrap/cache/*
+public/hot
+public/storage
+
+# Tests et coverage
+/coverage
+/.phpunit.cache
+.phpunit.result.cache
+
+# Documentation
+*.md
+README.md
+CHANGELOG.md
+
+# Fichiers temporaires
+*.log
+*.cache
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Docker (éviter la récursion)
+docker-compose.yml
+docker-compose.override.yml
+Dockerfile
+.dockerignore
+# Note: Le répertoire docker/ est nécessaire pour le build
+
+# Build
+/public/build
+/public/hot
+
+# Divers
+/database/*.sqlite
+/database/*.sqlite-journal
+npm-debug.log
+yarn-error.log
+.envmark.json
