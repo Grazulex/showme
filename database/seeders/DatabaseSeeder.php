@@ -90,23 +90,12 @@ final class DatabaseSeeder extends Seeder
             'is_weight' => false,
         ]);
 
-        // Créer des configurations système
+        // Créer la configuration système
         Configuration::factory()->create([
             'user_id' => $user->id,
-            'key' => 'weight_topic_id',
-            'value' => (string) $weightTopic->id,
-        ]);
-
-        Configuration::factory()->create([
-            'user_id' => $user->id,
-            'key' => 'calories_in_topic_id',
-            'value' => (string) $caloriesInTopic->id,
-        ]);
-
-        Configuration::factory()->create([
-            'user_id' => $user->id,
-            'key' => 'calories_out_topic_id',
-            'value' => (string) $caloriesOutTopic->id,
+            'topic_weight' => $weightTopic->id,
+            'topic_calorie_in' => $caloriesInTopic->id,
+            'topic_calorie_out' => $caloriesOutTopic->id,
         ]);
 
         // Créer des valeurs pour le poids (30 derniers jours, tendance à la baisse)
